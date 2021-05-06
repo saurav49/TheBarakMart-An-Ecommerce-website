@@ -1,0 +1,124 @@
+.productCard {
+  width: 265px;
+  margin: 2em;
+  position: relative;
+}
+
+.productCard:hover {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.productDesc {
+  padding: 0.5em;
+}
+
+.productDescOutOfStock {
+  padding: 0.5em;
+  opacity: 0.3;
+}
+
+.productDescOutOfStock > * {
+  padding: 0.35em;
+}
+
+.productDesc > * {
+  padding: 0.35em;
+}
+
+/* image-style */
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+}
+
+.imageContainerOutOfStock {
+  position: relative;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  text-align: center;
+}
+
+.imageOverlayDiv {
+  background-color: rgb(252, 92, 92);
+  padding: 1em;
+  border: 1px solid rgb(252, 92, 92);
+  border-radius: 0.2em;
+  box-shadow: 0px 4px 8px rgba(252, 92, 92, 0.4);
+}
+
+/* ALL BUTTONS HAVE Z-INDEX 2 */
+
+.btn {
+  width: 100%;
+  margin: 0em;
+  font-size: 0.95rem;
+  padding: 1em 0.5em;
+  border: none;
+  border: 2px solid #333;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s all ease-in;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 2;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  background-color: #333;
+  color: #fff;
+}
+
+.bagIcon {
+  font-size: 1.2rem;
+  transition: 0.3s all ease-in;
+  transform: translate(5px, -2.5px);
+}
+
+.btn:hover .bagIcon {
+  transform: translate(5px, -5px);
+}
+
+.arrowIcon {
+  font-size: 1.2rem;
+  transition: 0.3s all ease-in;
+  transform: translate(5px, -1.5px);
+}
+
+.btn:hover .arrowIcon {
+  transform: translate(10px, -1.5px);
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.btn_wish {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  margin: 0;
+  padding: 0.6em 0.4em;
+  background-color: rgb(207, 207, 207);
+  outline: none;
+  z-index: 2;
+}
+
+.btn_wish:hover {
+  background-color: rgb(255, 255, 255);
+  transform: translateY(-3px);
+}

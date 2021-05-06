@@ -1,0 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Open + Sans);
+
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+}
+
+.searchTerm {
+  width: 50%;
+  border: 3px solid rgb(116, 116, 116);
+  border-radius: 0.5em;
+  outline: none;
+  color: #eee;
+  padding: 1em;
+}
+
+.searchTermHide {
+  width: 50%;
+  border: 3px solid rgb(116, 116, 116);
+  border-radius: 0.5em;
+  outline: none;
+  color: #eee;
+  padding: 1em;
+  display: none;
+}
+
+/* placeholder-style */
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgb(109, 109, 109);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgb(109, 109, 109);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  color: rgb(109, 109, 109);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgb(109, 109, 109);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.searchTerm:focus {
+  color: #333;
+}
+
+.searchButton {
+  width: 45px;
+  height: 47.5px;
+  border: 1px solid #333;
+  background: #333;
+  text-align: center;
+  color: #fff;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.4em;
+}
