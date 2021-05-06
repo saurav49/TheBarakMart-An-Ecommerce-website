@@ -12,7 +12,7 @@ export const UserContext = createContext();
 const userFunction = (state, action) => {
   switch (action.type) {
     case "ADD_USERS_TO_LIST":
-      localStorage?.setItem(
+      const item = localStorage?.setItem(
         "users",
         JSON.stringify({ users: [...state.users, action.payload] })
       );

@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
       if (response.success) {
         setLogin(true);
-        localStorage?.setItem(
+        const item = localStorage?.setItem(
           "login",
           JSON.stringify({ isUserLoggedIn: true })
         );

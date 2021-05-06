@@ -13,7 +13,7 @@
 .App {
   font-family: Roboto, "sans-serif";
   color: #333;
-  text-align: center;
+  /* text-align: center; */
   height: 100vh;
 }
 
