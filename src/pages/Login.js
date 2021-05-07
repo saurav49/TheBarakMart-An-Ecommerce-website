@@ -126,13 +126,13 @@ const Login = () => {
             </button>
             <button
               style={{
-                fontSize: "0.7rem",
-                fontWeight: "900",
-                letterSpacing: "1.5px"
+                fontSize: "0.85rem",
+                fontWeight: "600"
               }}
               onClick={() => setSignUp((value) => !value)}
             >
-              SIGNUP
+              New user? create an account{" "}
+              <span style={{ color: "#fb3640" }}>SIGNUP</span>
             </button>
           </div>
         </div>
@@ -206,13 +206,12 @@ const Login = () => {
             </button>
             <button
               style={{
-                fontSize: "0.7rem",
-                fontWeight: "900",
-                letterSpacing: "1.5px"
+                fontSize: "0.85rem",
+                fontWeight: "600"
               }}
               onClick={() => setSignUp((value) => !value)}
             >
-              LOGIN
+              Existing user? <span style={{ color: "#fb3640" }}>LOGIN</span>
             </button>
           </div>
           <div
