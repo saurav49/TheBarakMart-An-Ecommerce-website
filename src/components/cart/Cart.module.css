@@ -1,0 +1,10 @@
+.cartDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cartList {
+  display: flex;
+  flex-wrap: wrap;
+}

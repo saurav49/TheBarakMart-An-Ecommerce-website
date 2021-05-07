@@ -1,0 +1,46 @@
+.checkoutContainer {
+  display: flex;
+  width: 70%;
+  max-width: 800px;
+  height: auto;
+  padding: 2em;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 500px) {
+  .checkoutContainer {
+    flex-direction: column;
+
+    height: auto;
+    width: 100%;
+  }
+}
+
+.checkoutPriceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 55%;
+  justify-content: center;
+  margin: 1em 2em;
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5em 0em;
+}
+
+.dividerLine {
+  width: 90%;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 1em auto;
+}
+
+.textDark {
+  color: #333;
+  font-weight: 700;
+}

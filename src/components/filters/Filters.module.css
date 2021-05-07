@@ -1,0 +1,44 @@
+.filterIcon {
+  font-size: 2rem;
+  margin: 0.5em;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 0 3em 0 0;
+}
+
+.dBlock {
+  display: block;
+  padding: 1em;
+  margin: 1em 1.5em;
+}
+
+.dNone {
+  display: none;
+}
+
+.showFilters {
+  transform: translateY(3px);
+  transition: 0.3s all ease-in;
+  opacity: 1;
+}
+
+.hideFilters {
+  transform: translateY(-3px);
+  transition: 0.3s all ease-in;
+  opacity: 0;
+}
+
+button {
+  margin: 1em;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.btn_clear_all {
+  text-transform: uppercase;
+  font-weight: 800;
+}
