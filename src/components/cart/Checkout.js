@@ -3,9 +3,11 @@ import { FaArrowRight } from "react-icons/fa";
 import styles from "../productList/ProductCard.module.css";
 import checkoutStyles from "./Checkout.module.css";
 import { useDataContext } from "../../context/useDataContext";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = ({}) => {
-  const { state, dispatch } = useDataContext();
+  const { state } = useDataContext();
+  const navigate = useNavigate();
 
   // Calculate Total Bill
   const reducer = (accumulator, currentValue) => {
@@ -17,7 +19,7 @@ const Checkout = ({}) => {
   };
 
   const handleGoToProducts = () => {
-    dispatch({ type: "DISPLAY_COMPONENT", payload: "PRODUCT" });
+    navigate("/products");
   };
 
   return (

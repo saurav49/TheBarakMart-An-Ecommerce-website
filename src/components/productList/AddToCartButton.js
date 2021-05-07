@@ -4,11 +4,11 @@ import { FaArrowRight } from "react-icons/fa";
 import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../context/useDataContext";
 import { Toast } from "../toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const AddToCartButton = ({ productId, inStock }) => {
   const {
     state,
-    dispatch,
     addProductToDb,
     updateCartQuantity,
     isLoading
@@ -26,9 +26,11 @@ const AddToCartButton = ({ productId, inStock }) => {
     (product) => product.productId === productId
   )[0];
 
+  const navigate = useNavigate();
+
   const handleAddToCart = () => {
     productToBeAdded.isInCartList
-      ? dispatch({ type: "DISPLAY_COMPONENT", payload: "CART" })
+      ? navigate("/cart")
       : checkIsInCartList(state.cartList, productId)
       ? updateCartQuantity({
           url: `/api/cartLists`,
