@@ -31,9 +31,7 @@ export default function App() {
         />
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
-        <div className="appComponent">
-          <PrivateRoute path="/product/:id" element={<DetailedProductCard />} />
-        </div>
+        <PrivateRoute path="/product/:id" element={<DetailedProductCard />} />
         <div className="appComponent">
           <Route path="/login" element={<Login />} />
         </div>

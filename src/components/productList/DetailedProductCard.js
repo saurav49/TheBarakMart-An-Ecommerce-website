@@ -11,11 +11,7 @@ const DetailedProductCard = () => {
 
   const { id } = useParams();
 
-  console.log("detailedProductCard", { id }, useParams());
-
   const requiredProduct = productList.find((product) => product._id === id);
-
-  console.log("detailedProductCard", { requiredProduct }, { id });
 
   return (
     <div className={styles.detailProductCardWrapper}>

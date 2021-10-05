@@ -134,11 +134,10 @@
 }
 
 .detailProductCardWrapper {
-  border: 2px solid #333;
-  border-radius: 0.5em;
   display: flex;
   align-items: center;
   width: 80%;
+  margin: 0 auto;
 }
 
 .detailProductCardWrapper > div {
@@ -146,7 +145,7 @@
 }
 
 .detailProductImage {
-  width: 100px;
+  width: 100%;
 }
 
 .productDesc {

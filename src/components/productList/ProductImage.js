@@ -5,6 +5,7 @@ const ProductImage = ({ id, src, inStock }) => {
   const navigate = useNavigate();
 
   const handleNavigateToDetailProductPage = (id) => {
+    console.log("ProductImage", {id});
     navigate(`/product/${id}`);
   };
 
