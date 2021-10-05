@@ -1,6 +1,6 @@
 import React from "react";
 import "./styles.css";
-import { Login, PrivateRoute, SignUp } from "./pages/index";
+import { Login, PrivateRoute, SignUp, Home } from "./pages/index";
 import { Routes, Route } from "react-router-dom";
 
 import {
@@ -32,12 +32,10 @@ export default function App() {
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
         <PrivateRoute path="/product/:id" element={<DetailedProductCard />} />
-        <div className="appComponent">
+        <Routes>
           <Route path="/login" element={<Login />} />
-        </div>
-        <div className="appComponent">
           <Route path="/signup" element={<SignUp />} />
-        </div>
+        </Routes>
       </Routes>
     </div>
   );

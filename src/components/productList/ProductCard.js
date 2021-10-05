@@ -31,7 +31,7 @@ const ProductCard = ({
         {dismissBtn ? (
           <CancelButton productId={productId} index={index} stateType={type} />
         ) : inStock ? (
-          <LikeButton productId={productId} index={index} />
+          <LikeButton productId={productId} styleType={"VERTICLE_CARD"} />
         ) : null}
         <ProductImage id={productId} src={image} inStock={inStock} />
         <div

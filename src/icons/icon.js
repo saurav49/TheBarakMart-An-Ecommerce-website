@@ -17,6 +17,7 @@ import { FiHeart } from "react-icons/fi";
 import { BiCartAlt } from "react-icons/bi";
 import { BsFilter } from "react-icons/bs";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export {
   FaShoppingBag,
@@ -35,4 +36,5 @@ export {
   RiLoginCircleFill,
   AiFillEye,
   AiFillEyeInvisible,
+  IoMdArrowRoundBack,
 };

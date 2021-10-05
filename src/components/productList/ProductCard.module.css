@@ -104,7 +104,7 @@
   transform: translateY(2px);
 }
 
-.btn_wish {
+.btnWishCard {
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -118,9 +118,30 @@
   z-index: 2;
 }
 
-.btn_wish:hover {
+.btnWishCard:hover {
   background-color: rgb(255, 255, 255);
   transform: translateY(-3px);
+}
+
+.btnWishDetailCard {
+  border: 2px solid #333;
+  padding: 0.8rem;
+  outline: none;
+  z-index: 2;
+}
+
+.btnWishDetailCard:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.heartIcon {
+  font-size: 1.3rem;
+  transition: 0.3s all ease-in;
+}
+
+.btnWishDetailCard:hover .heartIcon {
+  transform: translate(0px, -2.5px);
 }
 
 .offerTextStyle {
@@ -136,8 +157,8 @@
 .detailProductCardWrapper {
   display: flex;
   align-items: center;
-  width: 80%;
-  margin: 0 auto;
+  width: 90%;
+  margin: 2em auto 1em auto;
 }
 
 .detailProductCardWrapper > div {
@@ -148,9 +169,25 @@
   width: 100%;
 }
 
+.productDetails {
+  padding: 1.5em;
+  background-color: #eee;
+  color: #333;
+  border-radius: 0.75em;
+}
+
+.productDetails > * {
+  margin: 0.2em 0em;
+}
+
+.detailProductPriceText {
+  font-weight: 600;
+}
+
 .productDesc {
   display: flex;
   flex-direction: column;
+  padding-left: 1em;
 }
 
 .productDescBtns {
@@ -158,4 +195,48 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  margin: 1em 0em;
+}
+
+.similarProductsWrapper {
+  margin: 1.5em 0em 0em 0em;
+}
+
+.similarProductsHeading {
+  padding: 0em 2em;
+}
+
+.similarProducts {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.goBackBtn {
+  margin: 2em 2em 1em 2em;
+  padding: 0.5em 2.5em;
+  border: 2px solid #333;
+  cursor: pointer;
+}
+
+.goBackBtn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+@media screen and (max-width: 764px) {
+  .detailProductCardWrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .detailProductCardWrapper > div {
+    width: 100%;
+  }
+
+  .similarProducts {
+    flex-direction: column;
+  }
 }

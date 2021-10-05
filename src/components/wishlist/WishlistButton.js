@@ -3,7 +3,6 @@ import { FiHeart } from "../../icons/icon";
 import { useDataContext } from "../../hook/index";
 import styles from "./Wishlist.module.css";
 import { useNavigate } from "react-router-dom";
-import { IconContext } from "react-icons/lib";
 
 const WishlistButton = () => {
   const {
@@ -24,21 +23,10 @@ const WishlistButton = () => {
             <span>{wishList.length}</span>
           </div>
         )}
-        {/* <IconContext.Provider value={{ fontSize: "1.85rem", color: "#fff" }}> */}
+
         <FiHeart style={{ fontSize: "1.85rem", color: "#fff" }} />
-        {/* </IconContext.Provider> */}
       </button>
-      <p
-        style={{
-          fontSize: "0.75rem",
-          textAlign: "center",
-          fontWeight: "700",
-          margin: "0em",
-          padding: "0em",
-        }}
-      >
-        WISHLIST
-      </p>
+      <p className={styles.wishListTextStyle}>WISHLIST</p>
     </div>
   );
 };

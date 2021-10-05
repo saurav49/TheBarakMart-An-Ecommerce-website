@@ -4,7 +4,7 @@ import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../index";
 
-const LikeButton = ({ productId }) => {
+const LikeButton = ({ productId, styleType }) => {
   const {
     state,
     addProductToDb,
@@ -16,6 +16,12 @@ const LikeButton = ({ productId }) => {
   const productToBeAdded = state.productList.filter(
     (product) => product._id === productId
   )[0];
+
+  // Dynamic style for verticle and horizontal cards
+  const likeBtnStyle =
+    styleType === "VERTICLE_CARD"
+      ? styles.btnWishCard
+      : styles.btnWishDetailCard;
 
   const handleLikeBtn = () => {
     console.log("handleLikeBtn", state.toast);
@@ -42,11 +48,11 @@ const LikeButton = ({ productId }) => {
   return (
     <React.Fragment>
       <div>
-        <button className={styles.btn_wish} onClick={handleLikeBtn}>
+        <button className={likeBtnStyle} onClick={handleLikeBtn}>
           {productToBeAdded.isInWishList ? (
-            <FaHeart style={{ fontSize: "1.3rem" }} />
+            <FaHeart className={styles.heartIcon} />
           ) : (
-            <FaRegHeart style={{ fontSize: "1.3rem" }} />
+            <FaRegHeart className={styles.heartIcon} />
           )}
         </button>
       </div>
