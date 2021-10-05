@@ -122,3 +122,41 @@
   background-color: rgb(255, 255, 255);
   transform: translateY(-3px);
 }
+
+.offerTextStyle {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.outOfStockTextStyle {
+  color: #fff;
+  font-weight: 600;
+}
+
+.detailProductCardWrapper {
+  border: 2px solid #333;
+  border-radius: 0.5em;
+  display: flex;
+  align-items: center;
+  width: 80%;
+}
+
+.detailProductCardWrapper > div {
+  width: 50%;
+}
+
+.detailProductImage {
+  width: 100px;
+}
+
+.productDesc {
+  display: flex;
+  flex-direction: column;
+}
+
+.productDescBtns {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}

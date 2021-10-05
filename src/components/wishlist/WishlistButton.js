@@ -24,9 +24,9 @@ const WishlistButton = () => {
             <span>{wishList.length}</span>
           </div>
         )}
-        <IconContext.Provider value={{ fontSize: "1.85rem", color: "#333" }}>
-          <FiHeart />
-        </IconContext.Provider>
+        {/* <IconContext.Provider value={{ fontSize: "1.85rem", color: "#fff" }}> */}
+        <FiHeart style={{ fontSize: "1.85rem", color: "#fff" }} />
+        {/* </IconContext.Provider> */}
       </button>
       <p
         style={{

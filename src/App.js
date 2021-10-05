@@ -31,11 +31,13 @@ export default function App() {
         />
         <PrivateRoute path="/cart" element={<Cart />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
-        <PrivateRoute path="/product/:id" element={<DetailedProductCard />} />
-        <div className="loginComponent">
+        <div className="appComponent">
+          <PrivateRoute path="/product/:id" element={<DetailedProductCard />} />
+        </div>
+        <div className="appComponent">
           <Route path="/login" element={<Login />} />
         </div>
-        <div className="loginComponent">
+        <div className="appComponent">
           <Route path="/signup" element={<SignUp />} />
         </div>
       </Routes>

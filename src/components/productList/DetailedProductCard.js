@@ -11,12 +11,20 @@ const DetailedProductCard = () => {
 
   const { id } = useParams();
 
+  console.log("detailedProductCard", { id }, useParams());
+
   const requiredProduct = productList.find((product) => product._id === id);
+
+  console.log("detailedProductCard", { requiredProduct }, { id });
 
   return (
     <div className={styles.detailProductCardWrapper}>
       <div>
-        <img src={requiredProduct.image} alt={requiredProduct.category} />
+        <img
+          className={styles.detailProductImage}
+          src={requiredProduct.image}
+          alt={requiredProduct.category}
+        />
       </div>
       <div className={styles.productDesc}>
         <h2>{requiredProduct.name}</h2>

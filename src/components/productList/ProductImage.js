@@ -1,8 +1,15 @@
 import React from "react";
 import styles from "./ProductCard.module.css";
-const ProductImage = ({ src, inStock }) => {
+import { useNavigate } from "react-router";
+const ProductImage = ({ id, src, inStock }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateToDetailProductPage = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <div>
+    <div onClick={() => handleNavigateToDetailProductPage(id)}>
       <img
         src={src}
         alt="product-img"
@@ -13,7 +20,7 @@ const ProductImage = ({ src, inStock }) => {
       {!inStock ? (
         <div className={styles.imageOverlay}>
           <div className={styles.imageOverlayDiv}>
-            <p style={{ color: "#fff", fontWeight: "600" }}>OUT OF STOCK</p>
+            <p className={styles.outOfStockTextStyle}>OUT OF STOCK</p>
           </div>
         </div>
       ) : null}

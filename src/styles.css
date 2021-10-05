@@ -17,7 +17,7 @@
   height: 100vh;
 }
 
-.loginComponent {
+.appComponent {
   display: flex;
   align-items: center;
   justify-content: center;
