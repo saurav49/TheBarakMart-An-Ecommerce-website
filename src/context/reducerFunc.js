@@ -25,7 +25,10 @@ export const reducerFunc = (state, action) => {
             ? { ...product, isInWishList: true }
             : { ...product }
         ),
-        wishList: [...state.wishList, { ...action.payload, isInWishList: true }]
+        wishList: [
+          ...state.wishList,
+          { ...action.payload, isInWishList: true },
+        ],
       };
 
     case "REMOVE_PRODUCT_FROM_WISHLIST":
@@ -38,7 +41,7 @@ export const reducerFunc = (state, action) => {
         ),
         wishList: state.wishList.filter(
           (item) => item.productId !== action.productId
-        )
+        ),
       };
 
     case "ADD_PRODUCT_TO_CART":
@@ -46,13 +49,13 @@ export const reducerFunc = (state, action) => {
         ...state,
         cartList: [
           ...state.cartList,
-          { ...action.payload, quantity: 1, isInCartList: true }
+          { ...action.payload, quantity: 1, isInCartList: true },
         ],
         productList: state.productList.map((product) =>
           product.productId === action.productId
             ? { ...product, isInCartList: true }
             : { ...product }
-        )
+        ),
       };
 
     case "REMOVE_PRODUCT_FROM_CART":
@@ -65,7 +68,7 @@ export const reducerFunc = (state, action) => {
         ),
         cartList: state.cartList.filter(
           (product) => product.productId !== action.productId
-        )
+        ),
       };
 
     case "UPDATE_PRODUCT_QUANTITY_IN_CART":
@@ -82,10 +85,10 @@ export const reducerFunc = (state, action) => {
                   action.productId,
                   action.updateType,
                   action.payload
-                )
+                ),
               }
             : { ...product }
-        )
+        ),
       };
 
     case "DISPLAY_COMPONENT":
@@ -94,7 +97,7 @@ export const reducerFunc = (state, action) => {
     case "SORT":
       return {
         ...state,
-        filterStates: { ...state.filterStates, sortBy: action.payload }
+        filterStates: { ...state.filterStates, sortBy: action.payload },
       };
 
     case "TOGGLE_AVAILABILITY":
@@ -102,8 +105,8 @@ export const reducerFunc = (state, action) => {
         ...state,
         filterStates: {
           ...state.filterStates,
-          includeOutOfStock: !state.filterStates.includeOutOfStock
-        }
+          includeOutOfStock: !state.filterStates.includeOutOfStock,
+        },
       };
 
     case "TOGGLE_DELIVERY":
@@ -111,8 +114,8 @@ export const reducerFunc = (state, action) => {
         ...state,
         filterStates: {
           ...state.filterStates,
-          includeFastDelivery: !state.filterStates.includeFastDelivery
-        }
+          includeFastDelivery: !state.filterStates.includeFastDelivery,
+        },
       };
 
     case "CLEAR_FILTERS":
@@ -121,8 +124,8 @@ export const reducerFunc = (state, action) => {
         filterStates: {
           sortBy: null,
           includeFastDelivery: false,
-          includeOutOfStock: false
-        }
+          includeOutOfStock: false,
+        },
       };
 
     default:
@@ -185,7 +188,7 @@ const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
 
   let newCartList = [
     ...cartList,
-    { ...productToBeAdded, quantity: 1, isInCartList: true }
+    { ...productToBeAdded, quantity: 1, isInCartList: true },
   ];
 
   console.log("HELLO_DING_DONG", { newCartList });
@@ -196,11 +199,11 @@ const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
         return {
           ...product,
           quantity: product["quantity"] + 1,
-          isInCartList: true
+          isInCartList: true,
         };
       } else {
         return {
-          ...product
+          ...product,
         };
       }
     });

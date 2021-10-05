@@ -1,10 +1,10 @@
 import React from "react";
-import { useDataContext } from "../../context/useDataContext";
-import { ProductCard } from "../productList/ProductCard";
+import { useDataContext } from "../../hook/index";
+import { ProductCard } from "../index";
 
 const Wishlist = () => {
   const {
-    state: { wishList }
+    state: { wishList },
   } = useDataContext();
 
   return (

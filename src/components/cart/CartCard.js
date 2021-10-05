@@ -1,10 +1,8 @@
 import React from "react";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import { FaPlus, FaMinus, RiDeleteBin5Fill } from "../../icons/icon";
 import styles from "./CartCard.module.css";
-import { useDataContext } from "../../context/useDataContext";
-import { Toast } from "../toast/Toast";
+import { useDataContext } from "../../hook/index";
+import { Toast } from "../index";
 
 const CartCard = ({
   index,
@@ -16,14 +14,10 @@ const CartCard = ({
   price,
   fastDelivery,
   inStock,
-  offer
+  offer,
 }) => {
-  const {
-    state,
-    updateCartQuantity,
-    removeProductFromDb,
-    isLoading
-  } = useDataContext();
+  const { state, updateCartQuantity, removeProductFromDb, isLoading } =
+    useDataContext();
 
   const productToBeAdded = state.productList.filter(
     (product) => product.productId === productId
@@ -39,7 +33,7 @@ const CartCard = ({
           productIndex: index,
           updateType: "INCREMENT",
           toastMsg: `${productToBeAdded.name} QUANTITY HAS BEEN INCREASES`,
-          toastType: "success"
+          toastType: "success",
         });
         break;
 
@@ -51,7 +45,7 @@ const CartCard = ({
           productIndex: index,
           updateType: "DECREMENT",
           toastMsg: `${productToBeAdded.name} QUANTITY HAS BEEN DECREASED`,
-          toastType: "success"
+          toastType: "success",
         });
         break;
 
@@ -63,7 +57,7 @@ const CartCard = ({
           productId: productId,
           productIndex: index,
           toastMsg: `${productToBeAdded.name} HAS BEEN REMOVED`,
-          toastType: "error"
+          toastType: "error",
         });
         break;
 

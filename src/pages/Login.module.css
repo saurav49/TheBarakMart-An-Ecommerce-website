@@ -56,3 +56,61 @@
   outline: none !important;
   box-shadow: 0 0 10px var(--bg-secondary-light);
 }
+
+.loginWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1em 0em;
+  position: relative;
+}
+
+.signupIcon {
+  font-size: 1.1rem;
+  transform: translate(40%, 25%);
+  margin: 0em;
+  padding: 0em;
+}
+
+.redirectBtn {
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.signUpMessageWrapper {
+  background-color: rgb(80, 80, 80);
+  color: #fff;
+  display: flex;
+  padding: 3em 0em;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signUpMessageImg {
+  width: 50%;
+  align-self: center;
+  margin: 0.8em 0em;
+}
+
+.inputStyle {
+  margin: 1em 0em;
+}
+
+.passwordIcon {
+  position: absolute;
+  top: 30%;
+  right: 20%;
+  cursor: pointer;
+  color: rgb(105, 105, 105);
+  font-size: 1rem;
+}

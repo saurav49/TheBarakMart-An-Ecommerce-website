@@ -1,16 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import setupMockServer from "./api/mock.server";
 
 import App from "./App";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { DataProvider } from "./context/useDataContext";
-import { AuthProvider } from "./context/useAuthContext";
-import { UserProvider } from "./context/useUserContext";
-
-setupMockServer();
+import { DataProvider, AuthProvider, UserProvider } from "./context/index";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

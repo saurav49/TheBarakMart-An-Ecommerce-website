@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { ProductCard } from "./ProductCard";
-import { useDataContext } from "../../context/useDataContext";
-import { SearchBar } from "../searchBar/SearchBar";
+import { ProductCard, SearchBar } from "../index";
+import { useDataContext } from "../../hook/index";
 import styles from "./ProductList.module.css";
 
 const ProductList = () => {
@@ -74,22 +73,13 @@ const ProductList = () => {
       <div className={styles.productList}>
         {filteredData.map(
           (
-            {
-              productId,
-              name,
-              desc,
-              image,
-              price,
-              fastDelivery,
-              inStock,
-              offer
-            },
+            { _id, name, desc, image, price, fastDelivery, inStock, offer },
             index
           ) => {
             return (
               <ProductCard
-                key={productId}
-                productId={productId}
+                key={_id}
+                productId={_id}
                 index={index}
                 dismissBtn={false}
                 name={name}

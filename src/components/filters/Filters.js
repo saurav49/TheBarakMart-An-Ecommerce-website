@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { BsFilter } from "react-icons/bs";
+import { BsFilter } from "../../icons/icon";
 import styles from "./Filters.module.css";
-import { useDataContext } from "../../context/useDataContext";
+import { useDataContext } from "../../hook/index";
 
 const Filters = () => {
   const [showFilters, setShowFilters] = useState(false);
@@ -12,7 +12,7 @@ const Filters = () => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className={styles.filterContainer}>
         <button onClick={() => setShowFilters((showFilters) => !showFilters)}>
           <p
@@ -20,7 +20,7 @@ const Filters = () => {
               textTransform: "uppercase",
               fontWeight: "600",
               fontSize: "16px",
-              margin: "1em 1em 0em 1em"
+              margin: "1em 1em 0em 1em",
             }}
           >
             Filters
@@ -34,7 +34,7 @@ const Filters = () => {
           style={{
             display: "flex",
             flexDirection: "row-reverse",
-            margin: "0em 1em"
+            margin: "0em 1em",
           }}
         >
           <button
@@ -97,7 +97,7 @@ const Filters = () => {
           </label>
         </fieldset>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

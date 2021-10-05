@@ -1,8 +1,8 @@
 import React from "react";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight } from "../../icons/icon";
 import styles from "../productList/ProductCard.module.css";
 import checkoutStyles from "./Checkout.module.css";
-import { useDataContext } from "../../context/useDataContext";
+import { useDataContext } from "../../hook/index";
 
 const Checkout = ({}) => {
   const { state, dispatch } = useDataContext();
@@ -21,7 +21,7 @@ const Checkout = ({}) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       {calculateBill() > 0 && (
         <div
           className={checkoutStyles.dividerLine}
@@ -34,7 +34,7 @@ const Checkout = ({}) => {
             style={{
               display: "flex",
               flexDiection: "column",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             <h2> Start adding products to cart</h2>
@@ -52,16 +52,16 @@ const Checkout = ({}) => {
         <div className={checkoutStyles.checkoutPriceContainer}>
           <div className={checkoutStyles.priceContainer}>
             {calculateBill() > 0 ? (
-              <>
+              <React.Fragment>
                 <p> TOTAL MRP </p> <span> ₹ {calculateBill()} </span>
-              </>
+              </React.Fragment>
             ) : null}
           </div>
           <div className={checkoutStyles.priceContainer}>
             {calculateBill() > 0 ? (
-              <>
+              <React.Fragment>
                 <p> SHIPPING COST </p> <span> ₹ 50 </span>
-              </>
+              </React.Fragment>
             ) : null}
           </div>
 
@@ -73,12 +73,12 @@ const Checkout = ({}) => {
           )}
           <div className={checkoutStyles.priceContainer}>
             {calculateBill() > 0 ? (
-              <>
+              <React.Fragment>
                 <p className={checkoutStyles.textDark}> TOTAL AMOUNT </p>
                 <span className={checkoutStyles.textDark}>
                   ₹ {calculateBill() + 50}
                 </span>
-              </>
+              </React.Fragment>
             ) : null}
           </div>
         </div>
@@ -90,7 +90,7 @@ const Checkout = ({}) => {
           </button>
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

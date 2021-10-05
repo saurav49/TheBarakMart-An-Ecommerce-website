@@ -1,29 +1,21 @@
 import React from "react";
-import { FaShoppingBag } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
+import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
-import { useDataContext } from "../../context/useDataContext";
+import { useDataContext } from "../../hook/index";
 import { Toast } from "../toast/Toast";
 
 const AddToCartButton = ({ productId, inStock }) => {
-  const {
-    state,
-    dispatch,
-    addProductToDb,
-    updateCartQuantity,
-    isLoading
-  } = useDataContext();
+  const { state, dispatch, addProductToDb, updateCartQuantity, isLoading } =
+    useDataContext();
 
   // To check whether item is in cartList
   const checkIsInCartList = (cartList, productId) => {
-    return (
-      cartList.find((product) => product.productId === productId) !== undefined
-    );
+    return cartList.find((product) => product._id === productId) !== undefined;
   };
 
   // Extract product from the product list
   const productToBeAdded = state.productList.filter(
-    (product) => product.productId === productId
+    (product) => product._id === productId
   )[0];
 
   const handleAddToCart = () => {
@@ -37,7 +29,7 @@ const AddToCartButton = ({ productId, inStock }) => {
           productId: productId,
           updateType: "INCREMENT",
           toastMsg: `${productToBeAdded.name} HAS BEEN UPDATED`,
-          toastType: "info"
+          toastType: "info",
         })
       : addProductToDb({
           url: `/api/cartLists`,
@@ -45,31 +37,31 @@ const AddToCartButton = ({ productId, inStock }) => {
           dispatchType: "ADD_PRODUCT_TO_CART",
           productId: productId,
           toastMsg: `${productToBeAdded.name} HAS BEEN ADDED TO CART`,
-          toastType: "success"
+          toastType: "success",
         });
   };
 
   return (
-    <>
+    <React.Fragment>
       {inStock ? (
         <button className={styles.btn} onClick={handleAddToCart}>
           {productToBeAdded.isInCartList ? (
-            <>
+            <React.Fragment>
               <span>GO TO CART</span>
               <FaArrowRight className={styles.arrowIcon} />
-            </>
+            </React.Fragment>
           ) : (
-            <>
+            <React.Fragment>
               <FaShoppingBag className={styles.bagIcon} />
               <span>ADD TO CART</span>
-            </>
+            </React.Fragment>
           )}
         </button>
       ) : null}
       {isLoading && (
         <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
       )}
-    </>
+    </React.Fragment>
   );
 };
 

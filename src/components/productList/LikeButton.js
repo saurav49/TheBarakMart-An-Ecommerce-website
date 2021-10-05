@@ -1,9 +1,8 @@
 import React from "react";
-import { FaRegHeart } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa";
+import { FaRegHeart, FaHeart } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
-import { useDataContext } from "../../context/useDataContext";
-import { Toast } from "../toast/Toast";
+import { useDataContext } from "../../hook/index";
+import { Toast } from "../index";
 
 const LikeButton = ({ productId }) => {
   const {
@@ -11,11 +10,11 @@ const LikeButton = ({ productId }) => {
     addProductToDb,
     removeProductFromDb,
 
-    isLoading
+    isLoading,
   } = useDataContext();
 
   const productToBeAdded = state.productList.filter(
-    (product) => product.productId === productId
+    (product) => product._id === productId
   )[0];
 
   const handleLikeBtn = () => {
@@ -28,7 +27,7 @@ const LikeButton = ({ productId }) => {
           dispatchType: "REMOVE_PRODUCT_FROM_WISHLIST",
           productId: productId,
           toastMsg: `${productToBeAdded.name} has been removed from wishlist`,
-          toastType: "error"
+          toastType: "error",
         })
       : addProductToDb({
           url: "/api/wishLists",
@@ -36,12 +35,12 @@ const LikeButton = ({ productId }) => {
           dispatchType: "ADD_PRODUCT_TO_WISHLIST",
           productId: productId,
           toastMsg: `${productToBeAdded.name} has been added to wishlist`,
-          toastType: "success"
+          toastType: "success",
         });
   };
 
   return (
-    <>
+    <React.Fragment>
       <div>
         <button className={styles.btn_wish} onClick={handleLikeBtn}>
           {productToBeAdded.isInWishList ? (
@@ -54,7 +53,7 @@ const LikeButton = ({ productId }) => {
       {isLoading && (
         <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
       )}
-    </>
+    </React.Fragment>
   );
 };
 

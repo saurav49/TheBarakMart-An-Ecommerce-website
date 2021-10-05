@@ -1,11 +1,10 @@
 import React from "react";
-import { useDataContext } from "../../context/useDataContext";
-import { Checkout } from "./Checkout";
-import { CartCard } from "./CartCard";
+import { useDataContext } from "../../hook/index";
+import { Checkout, CartCard } from "../index";
 
 const Cart = () => {
   const {
-    state: { cartList }
+    state: { cartList },
   } = useDataContext();
 
   return (
@@ -23,7 +22,7 @@ const Cart = () => {
               price,
               fastDelivery,
               inStock,
-              offer
+              offer,
             },
             index
           ) => {

@@ -4,6 +4,7 @@ import { AddToCartButton } from "./AddToCartButton";
 import { LikeButton } from "./LikeButton";
 import { CancelButton } from "./CancelButton";
 import { ProductImage } from "./ProductImage";
+import { useNavigate } from "react-router";
 
 const ProductCard = ({
   productId,
@@ -16,25 +17,32 @@ const ProductCard = ({
   price,
   fastDelivery,
   inStock,
-  offer
+  offer,
 }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateToDetailProductPage = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <>
+    <React.Fragment>
       <div className={styles.productCard}>
         {dismissBtn ? (
           <CancelButton productId={productId} index={index} stateType={type} />
         ) : inStock ? (
           <LikeButton productId={productId} index={index} />
         ) : null}
-        <ProductImage src={image} inStock={inStock} />
+        <ProductImage id={productId} src={image} inStock={inStock} />
         <div
           className={
             inStock ? styles.productDesc : styles.productDescOutOfStock
           }
+          onClick={() => handleNavigateToDetailProductPage(productId)}
         >
           <h3> {name} </h3>
           <span> ₹ {price} </span>
-          <span style={{ color: "red", fontWeight: "700" }}> {offer} </span>
+          <span className={styles.offerTextStyle}> {offer} </span>
           <p>
             {inStock ? <span> In Stock </span> : <span> Out Of Stock </span>}
           </p>
@@ -48,7 +56,7 @@ const ProductCard = ({
         </div>
         <AddToCartButton productId={productId} inStock={inStock} />
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

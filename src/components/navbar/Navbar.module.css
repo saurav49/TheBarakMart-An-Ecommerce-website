@@ -34,6 +34,24 @@
   /* width: 50%; */
 }
 
+.logoutBtnWrapper {
+  margin: 0 1.5em 0 0;
+  cursor: pointer;
+}
+
+.logoutBtnText {
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  margin: 0em;
+  padding: 0em;
+}
+
+.logoutBtnIcon {
+  font-size: 1.85rem;
+  color: #fff;
+}
+
 @media (max-width: 550px) {
   .navbar {
     flex-direction: column;

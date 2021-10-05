@@ -1,12 +1,12 @@
 import React from "react";
-import { BiCartAlt } from "react-icons/bi";
-import { useDataContext } from "../../context/useDataContext";
+import { BiCartAlt } from "../../icons/icon";
+import { useDataContext } from "../../hook/index";
 import styles from "./CartCard.module.css";
 import { useNavigate } from "react-router-dom";
 
 const CartButton = () => {
   const {
-    state: { cartList }
+    state: { cartList },
   } = useDataContext();
 
   let navigate = useNavigate();
@@ -31,7 +31,7 @@ const CartButton = () => {
           textAlign: "center",
           fontWeight: "700",
           margin: "0em",
-          padding: "0em"
+          padding: "0em",
         }}
       >
         BAG

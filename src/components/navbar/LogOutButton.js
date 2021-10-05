@@ -1,31 +1,17 @@
 import React from "react";
-import { RiLogoutBoxRFill } from "react-icons/ri";
-import { useAuthContext } from "../../context/useAuthContext";
+import { RiLogoutBoxRFill } from "../../icons/icon";
+import { useAuthContext } from "../../hook/index";
+import styles from "./Navbar.module.css";
 
 const LogOutButton = () => {
-  const { setLogin } = useAuthContext();
-
-  const handleLogOut = () => {
-    setLogin(false);
-    localStorage.removeItem("login");
-  };
+  const { handleLogOut } = useAuthContext();
 
   return (
-    <div style={{ margin: "0 1.5em 0 0", cursor: "pointer" }}>
+    <div className={styles.logoutBtnWrapper}>
       <button onClick={handleLogOut}>
-        <RiLogoutBoxRFill style={{ fontSize: "1.85rem", color: "#fff" }} />
+        <RiLogoutBoxRFill className={styles.logoutBtnIcon} />
       </button>
-      <p
-        style={{
-          fontSize: "0.75rem",
-          textAlign: "center",
-          fontWeight: "700",
-          margin: "0em",
-          padding: "0em"
-        }}
-      >
-        LOGOUT
-      </p>
+      <p className={styles.logoutBtnText}>LOGOUT</p>
     </div>
   );
 };

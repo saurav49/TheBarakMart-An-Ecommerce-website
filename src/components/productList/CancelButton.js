@@ -1,8 +1,8 @@
 import React from "react";
-import { ImCancelCircle } from "react-icons/im";
-import { useDataContext } from "../../context/useDataContext";
+import { ImCancelCircle } from "../../icons/icon";
+import { useDataContext } from "../../hook/index";
 import styles from "./ProductCard.module.css";
-import { Toast } from "../toast/Toast";
+import { Toast } from "../index";
 
 const CancelButton = ({ productId, stateType }) => {
   const { state, removeProductFromDb, isLoading } = useDataContext();
@@ -10,7 +10,7 @@ const CancelButton = ({ productId, stateType }) => {
   const type = stateType === "cartList" ? "CART" : "WISHLIST";
 
   const productToBeRemoved = state.productList.filter(
-    (product) => product.productId === productId
+    (product) => product._id === productId
   )[0];
 
   const handleCancelBtn = () => {
@@ -20,19 +20,19 @@ const CancelButton = ({ productId, stateType }) => {
       dispatchType: `REMOVE_PRODUCT_FROM_${type}`,
       productId: productId,
       toastMsg: `${productToBeRemoved.name} HAS BEEN REMOVED`,
-      toastType: "error"
+      toastType: "error",
     });
   };
 
   return (
-    <>
+    <React.Fragment>
       <button onClick={handleCancelBtn} className={styles.btn_wish}>
         <ImCancelCircle style={{ fontSize: "1.3rem" }} />
       </button>
       {isLoading && (
         <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
       )}
-    </>
+    </React.Fragment>
   );
 };
 
