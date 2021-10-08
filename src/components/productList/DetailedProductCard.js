@@ -1,62 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProductCard.module.css";
-import { IoMdArrowRoundBack } from "../../icons/icon";
 import { AddToCartButton, LikeButton, ProductCard } from "../index";
 import { useParams } from "react-router";
 import { useDataContext } from "../../hook";
-import { useNavigate } from "react-router";
-import { IconContext } from "react-icons/lib";
+import { BackButton } from "../index";
 
 const DetailedProductCard = () => {
   const {
     state: { productList },
   } = useDataContext();
 
-  const navigate = useNavigate();
+  // const [requiredProducts, setRequiredProducts] = useState([
+  //   productList.find((product) => product._id === id),
+  // ]);
+  // const [similarProducts, setSimilarProducts] = useState([
+  //   productList.filter(
+  //     (product) =>
+  //       product.category === requiredProducts.category &&
+  //       product.inStock &&
+  //       product._id !== id
+  //   ),
+  // ]);
 
   const { id } = useParams();
 
-  const requiredProduct = productList.find((product) => product._id === id);
+  // useEffect(() => {
+  //   setRequiredProducts(productList.find((product) => product._id === id));
+  //   setSimilarProducts(
+  //     productList.filter(
+  //       (product) =>
+  //         product.category === requiredProducts.category &&
+  //         product.inStock &&
+  //         product._id !== id
+  //     )
+  //   );
+  // }, [id]);
+
+  const requiredProducts = productList.find((product) => product._id === id);
   const similarProducts = productList.filter(
     (product) =>
-      product.category === requiredProduct.category &&
+      product.category === requiredProducts.category &&
       product.inStock &&
       product._id !== id
   );
 
-  console.log("detailedProductCard", requiredProduct);
+  console.log(
+    { similarProducts, requiredProducts },
+    { id },
+    productList.find((product) => product._id === id),
+    { productList }
+  );
 
   return (
     <React.Fragment>
-      <button className={styles.goBackBtn} onClick={() => navigate(-1)}>
-        <IconContext.Provider value={{ size: "1.5rem" }}>
-          <IoMdArrowRoundBack />
-        </IconContext.Provider>
-      </button>
+      <BackButton />
       <div className={styles.detailProductCardWrapper}>
         <div className={styles.detailProductImageWrapper}>
           <img
             className={styles.detailProductImage}
-            src={requiredProduct.image}
-            alt={requiredProduct.category}
+            src={requiredProducts.image}
+            alt={requiredProducts.category}
           />
         </div>
         <div className={styles.productDesc}>
-          <h2>{requiredProduct.name}</h2>
-          <p>{requiredProduct.brandName}</p>
+          <h2>{requiredProducts.name}</h2>
+          <p>{requiredProducts.brandName}</p>
           <p className={styles.detailProductPriceText}>
-            ₹ {requiredProduct.price}
+            ₹ {requiredProducts.price}
           </p>
           <div className={styles.productDescBtns}>
             <AddToCartButton
-              productId={requiredProduct._id}
-              inStock={requiredProduct.inStock}
+              productId={requiredProducts._id}
+              inStock={requiredProducts.inStock}
             />
             <LikeButton productId={id} styleType={"HORTIZONTAL_CARD"} />
           </div>
           <div className={styles.productDetails}>
             <h3>Description</h3>
-            <p>{requiredProduct.description}</p>
+            <p>{requiredProducts.description}</p>
           </div>
         </div>
       </div>

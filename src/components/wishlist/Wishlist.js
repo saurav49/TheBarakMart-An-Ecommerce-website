@@ -1,6 +1,7 @@
 import React from "react";
 import { useDataContext } from "../../hook/index";
 import { ProductCard } from "../index";
+import { EmptyWishListImage } from "./undraw_Wishlist_re_m7tv.svg";
 
 const Wishlist = () => {
   const {
@@ -9,6 +10,29 @@ const Wishlist = () => {
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
+      {wishList.length > 0 ? (
+        <WishListItems wishList={wishList} />
+      ) : (
+        <EmptyWishListPage />
+      )}
+    </div>
+  );
+};
+
+const EmptyWishListPage = () => {
+  return (
+    <div>
+      <img src={EmptyWishListImage} alt="empty-wishlist-image" />
+      <h2>Your Wishlist is empty!</h2>
+      <p>Seems like you don't have wishes here</p>
+      <p>Make a wish!</p>
+    </div>
+  );
+};
+
+const WishListItems = ({ wishList }) => {
+  return (
+    <div>
       {wishList.map(
         (
           { productId, name, desc, image, price, fastDelivery, inStock, offer },
@@ -35,5 +59,4 @@ const Wishlist = () => {
     </div>
   );
 };
-
 export { Wishlist };

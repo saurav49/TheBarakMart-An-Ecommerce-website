@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useDataContext } from "./hook/index";
-import { useNavigate } from "react-router-dom";
 import { PRODUCT_API, WISHLIST_API, CART_API } from "./urls";
 
 const Initialize = () => {
   const { fetchProductAndAdd } = useDataContext();
-  let navigate = useNavigate();
 
   useEffect(() => {
     fetchProductAndAdd({
@@ -13,7 +11,7 @@ const Initialize = () => {
       dispatchType: "ADD_TO_PRODUCT",
       listType: "products",
     });
-    navigate("/products");
+    console.log("UTILS");
   }, []);
 
   useEffect(() => {

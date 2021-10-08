@@ -1,18 +1,17 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Route, Navigate, useLocation } from "react-router";
 import { useAuthContext } from "../hook/index";
 
-const PrivateRoute = ({ isLogin, path, ...props }) => {
+const PrivateRoute = (props) => {
   const { token } = useAuthContext();
-
-  console.log("privateRoute", path, props);
+  const location = useLocation();
 
   return (
     <React.Fragment>
       {token ? (
-        <Route path={path} {...props} />
+        <Route {...props} />
       ) : (
-        <Navigate state={{ from: path }} replace to="/login" />
+        <Navigate state={{ from: location.pathname }} replace to="/login" />
       )}
     </React.Fragment>
   );

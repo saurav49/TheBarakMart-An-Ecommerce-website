@@ -7,7 +7,7 @@ import {
   FaPlus,
   FaMinus,
 } from "react-icons/fa";
-import { ImCancelCircle } from "react-icons/im";
+import { ImCancelCircle, ImArrowRight } from "react-icons/im";
 import {
   RiLogoutBoxRFill,
   RiDeleteBin5Fill,
@@ -16,7 +16,11 @@ import {
 import { FiHeart } from "react-icons/fi";
 import { BiCartAlt } from "react-icons/bi";
 import { BsFilter } from "react-icons/bs";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {
+  AiFillEye,
+  AiFillEyeInvisible,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 export {
@@ -37,4 +41,6 @@ export {
   AiFillEye,
   AiFillEyeInvisible,
   IoMdArrowRoundBack,
+  AiOutlineArrowRight,
+  ImArrowRight,
 };

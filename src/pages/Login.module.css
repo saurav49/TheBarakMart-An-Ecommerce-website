@@ -23,16 +23,6 @@
   border-bottom-right-radius: 0.4em;
 }
 
-@media screen and (max-width: 500px) {
-  .loginDiv {
-    flex-direction: column;
-  }
-  .loginDiv > div {
-    width: 100%;
-    border-radius: 0.4em;
-  }
-}
-
 .inpt {
   border: 1px solid var(--bg-secondary);
   border-radius: var(--b-rad-05);
@@ -120,4 +110,14 @@
   cursor: pointer;
   color: rgb(105, 105, 105);
   font-size: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .loginDiv {
+    flex-direction: column;
+  }
+  .loginDiv > div {
+    width: 100%;
+    border-radius: 0.4em;
+  }
 }

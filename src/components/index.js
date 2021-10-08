@@ -16,6 +16,9 @@ import { DetailedProductCard } from "./productList/DetailedProductCard";
 import { ProductList } from "./productList/ProductList";
 import { SearchBar } from "./searchBar/SearchBar";
 import { Toast } from "./toast/Toast";
+import { CategoryPage } from "./CategoryPage/CategoryPage";
+import { BackButton } from "./productList/BackButton";
+import { Footer } from "./Footer/Footer";
 
 export {
   Wishlist,
@@ -36,4 +39,7 @@ export {
   DetailedProductCard,
   SearchBar,
   Toast,
+  CategoryPage,
+  BackButton,
+  Footer,
 };

@@ -10,15 +10,15 @@ import { DataProvider, AuthProvider, UserProvider } from "./context/index";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
-    <DataProvider>
-      <UserProvider>
-        <Router>
+    <Router>
+      <DataProvider>
+        <UserProvider>
           <AuthProvider>
             <App />
           </AuthProvider>
-        </Router>
-      </UserProvider>
-    </DataProvider>
+        </UserProvider>
+      </DataProvider>
+    </Router>
   </React.StrictMode>,
   rootElement
 );

@@ -31,7 +31,7 @@ export const DataProvider = ({ children }) => {
         dispatch({ type: dispatchType, payload: data[listType] });
       }
     } catch (error) {
-      alert(error);
+      console.log("fetchProductAndAdd", error);
     }
   };
 
@@ -77,7 +77,7 @@ export const DataProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      alert(error);
+      console.log("updateCartQuantity", error);
     } finally {
       state.loadingStatus = false;
 
@@ -120,7 +120,7 @@ export const DataProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      alert(error);
+      console.log("addProductToDb", error);
     } finally {
       state.loadingStatus = false;
       console.log("FROM FINALLY ADD", { isLoading }, state.loadingStatus);
@@ -160,7 +160,7 @@ export const DataProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      alert(error);
+      console.log("removeProductFromDb", error);
     } finally {
       state.loadingStatus = false;
       console.log("FROM FINALLY DELETE", { isLoading }, state.loadingStatus);

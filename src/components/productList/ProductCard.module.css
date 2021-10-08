@@ -2,6 +2,10 @@
   width: 265px;
   margin: 2em;
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .productCard:hover {
@@ -214,15 +218,25 @@
 }
 
 .goBackBtn {
+  width: 100px;
   margin: 2em 2em 1em 2em;
   padding: 0.5em 2.5em;
   border: 2px solid #333;
   cursor: pointer;
+  transition: 0.3s all ease-in;
+}
+
+.goBackBtnIcon {
+  transition: 0.3s all ease-in;
 }
 
 .goBackBtn:hover {
   background-color: #333;
   color: #fff;
+}
+
+.goBackBtn:hover > .goBackBtnIcon {
+  transform: translate(-10px, 0px);
 }
 
 @media screen and (max-width: 764px) {

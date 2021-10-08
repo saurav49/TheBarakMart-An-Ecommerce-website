@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -14,18 +14,16 @@ import { SIGNUP_API, LOGIN_API } from "../urls";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const savedToken = JSON.parse(localStorage.getItem("token")) || {
+    token: null,
+  };
+
   const [isLogin, setLogin] = useState(false);
   const [error, setError] = useState("");
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(savedToken);
   const [showLoader, setShowLoader] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-
-    token ? setToken(token) : setToken("");
-  }, []);
 
   const handleLogOut = async () => {
     localStorage.removeItem("token");
@@ -45,11 +43,9 @@ export const AuthProvider = ({ children }) => {
 
       const { data } = await axios.post(LOGIN_API, { username, password });
 
-      console.log("handleLogin", data);
-
       if (data.success) {
         setShowLoader(false);
-        const t = localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", JSON.stringify(data.token));
         setToken(data.token);
         navigate("/products");
         setUsername("");
@@ -112,7 +108,7 @@ export const AuthProvider = ({ children }) => {
 
       if (data.success) {
         setShowLoader(false);
-        const t = localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("token", JSON.stringify(data.token));
         setToken(data.token);
         setUsername("");
         setEmail("");

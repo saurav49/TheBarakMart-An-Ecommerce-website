@@ -15,28 +15,13 @@ const Filters = () => {
     <React.Fragment>
       <div className={styles.filterContainer}>
         <button onClick={() => setShowFilters((showFilters) => !showFilters)}>
-          <p
-            style={{
-              textTransform: "uppercase",
-              fontWeight: "600",
-              fontSize: "16px",
-              margin: "1em 1em 0em 1em",
-            }}
-          >
-            Filters
-          </p>
+          <p className={styles.filterTextStyle}>Filters</p>
           <BsFilter className={styles.filterIcon} />
         </button>
       </div>
 
       <div className={showFilters ? styles.showFilters : styles.hideFilters}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            margin: "0em 1em",
-          }}
-        >
+        <div className={styles.btnWrapper}>
           <button
             className={styles.btn_clear_all}
             onClick={handleClearAllFilters}
@@ -58,7 +43,7 @@ const Filters = () => {
                 dispatch({ type: "SORT", payload: "HIGH_TO_LOW" })
               }
             />
-            <span style={{ padding: "0em 0.2em" }}> Price - High to Low </span>
+            <span className={styles.spanStyle}> Price - High to Low </span>
           </label>
 
           <label>
@@ -73,7 +58,7 @@ const Filters = () => {
                 dispatch({ type: "SORT", payload: "LOW_TO_HIGH" })
               }
             />
-            <span style={{ padding: "0em 0.2em" }}> Price - Low to High </span>
+            <span className={styles.spanStyle}> Price - Low to High </span>
           </label>
         </fieldset>
         <fieldset className={showFilters ? styles.dBlock : styles.dNone}>
@@ -84,7 +69,7 @@ const Filters = () => {
               checked={state.filterStates.includeOutOfStock}
               onChange={() => dispatch({ type: "TOGGLE_AVAILABILITY" })}
             />
-            <span style={{ padding: "0em 0.2em" }}> Include Out Of Stock </span>
+            <span className={styles.spanStyle}> Include Out Of Stock </span>
           </label>
 
           <label>
@@ -93,7 +78,7 @@ const Filters = () => {
               checked={state.filterStates.includeFastDelivery}
               onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
             />
-            <span style={{ padding: "0em 0.2em" }}> Fast Delivery </span>
+            <span className={styles.spanStyle}> Fast Delivery </span>
           </label>
         </fieldset>
       </div>

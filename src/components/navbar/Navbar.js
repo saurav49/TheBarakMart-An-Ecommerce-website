@@ -11,7 +11,7 @@ function Navbar() {
   const { token } = useAuthContext();
 
   const handleHomePageDisplay = () => {
-    navigate("/products");
+    navigate("/");
   };
 
   return (
