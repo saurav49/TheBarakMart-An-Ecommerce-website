@@ -1,6 +1,7 @@
 import React from "react";
 import { useDataContext } from "../../hook/index";
 import { Checkout, CartCard } from "../index";
+import styles from "./Cart.module.css";
 
 const Cart = () => {
   const {
@@ -8,10 +9,8 @@ const Cart = () => {
   } = useDataContext();
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className={styles.cartDiv}>
+      <div className={styles.cartList}>
         {cartList.map(
           (
             {

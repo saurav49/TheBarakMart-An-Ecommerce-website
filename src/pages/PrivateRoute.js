@@ -1,11 +1,7 @@
 import React from "react";
-import { Route, Navigate, useLocation } from "react-router";
-import { useAuthContext } from "../hook/index";
+import { Route, Navigate } from "react-router-dom";
 
-const PrivateRoute = (props) => {
-  const { token } = useAuthContext();
-  const location = useLocation();
-
+const PrivateRoute = ({ isLogin, path, ...props }) => {
   return (
     <React.Fragment>
       {token ? (

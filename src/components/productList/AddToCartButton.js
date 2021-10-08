@@ -3,9 +3,10 @@ import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const AddToCartButton = ({ productId, inStock }) => {
-  const { state, dispatch, addProductToDb, updateCartQuantity, isLoading } =
+  const { state, addProductToDb, updateCartQuantity, isLoading } =
     useDataContext();
 
   // To check whether item is in cartList
@@ -18,9 +19,11 @@ const AddToCartButton = ({ productId, inStock }) => {
     (product) => product._id === productId
   )[0];
 
+  const navigate = useNavigate();
+
   const handleAddToCart = () => {
     productToBeAdded.isInCartList
-      ? dispatch({ type: "DISPLAY_COMPONENT", payload: "CART" })
+      ? navigate("/cart")
       : checkIsInCartList(state.cartList, productId)
       ? updateCartQuantity({
           url: `/api/cartLists`,
