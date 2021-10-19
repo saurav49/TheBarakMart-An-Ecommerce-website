@@ -14,9 +14,7 @@ import { SIGNUP_API, LOGIN_API } from "../urls";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const savedToken = JSON.parse(localStorage.getItem("token")) || {
-    token: null,
-  };
+  const savedToken = JSON.parse(localStorage.getItem("token")) || null;
 
   const [isLogin, setLogin] = useState(false);
   const [error, setError] = useState("");

@@ -4,6 +4,8 @@ import { useAuthContext } from "../hook/index";
 const PrivateRoute = ({ isLogin, path, ...props }) => {
   const { token } = useAuthContext();
 
+  console.log("PrivateRoute", token);
+
   return (
     <React.Fragment>
       {token ? (
