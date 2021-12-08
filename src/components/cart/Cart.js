@@ -14,7 +14,7 @@ const Cart = () => {
         {cartList.map(
           (
             {
-              productId,
+              _id,
               name,
               desc,
               image,
@@ -22,15 +22,16 @@ const Cart = () => {
               fastDelivery,
               inStock,
               offer,
+              quantity,
             },
             index
           ) => {
             return (
               <CartCard
-                key={productId}
+                key={_id}
                 index={index}
                 type="cartList"
-                productId={productId}
+                productId={_id}
                 dismissBtn={true}
                 name={name}
                 desc={desc}
@@ -39,6 +40,7 @@ const Cart = () => {
                 fastDelivery={fastDelivery}
                 inStock={inStock}
                 offer={offer}
+                quantity={quantity}
               />
             );
           }

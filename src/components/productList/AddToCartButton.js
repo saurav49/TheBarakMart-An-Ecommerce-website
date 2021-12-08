@@ -1,45 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
+import { CART_API } from "../../urls";
 
-const AddToCartButton = ({ productId, inStock }) => {
-  const { state, addProductToDb, updateCartQuantity, isLoading } =
-    useDataContext();
+const AddToCartButton = ({ name, productId, inStock, isInCartList }) => {
+  const {
+    state,
+    addProductToCart,
+    updateCartQuantity,
+    isLoading,
+    fetchProductAndAdd,
+  } = useDataContext();
+
+  useEffect(() => {
+    fetchProductAndAdd({
+      url: `${CART_API}`,
+      dispatchType: "ADD_TO_CART",
+      listType: "cartList",
+    });
+  }, [state.cartList]);
 
   // To check whether item is in cartList
   const checkIsInCartList = (cartList, productId) => {
     return cartList.find((product) => product._id === productId) !== undefined;
   };
 
-  // Extract product from the product list
-  const productToBeAdded = state.productList.filter(
-    (product) => product._id === productId
-  )[0];
-
   const navigate = useNavigate();
 
+  // addProductToCart = async ({ url, productId, toastMsg, toastType })
+
   const handleAddToCart = () => {
-    productToBeAdded.isInCartList
+    isInCartList
       ? navigate("/cart")
       : checkIsInCartList(state.cartList, productId)
       ? updateCartQuantity({
-          url: `/api/cartLists`,
+          url: `${CART_API}`,
           listType: "cartList",
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productId,
           updateType: "INCREMENT",
-          toastMsg: `${productToBeAdded.name} HAS BEEN UPDATED`,
+          toastMsg: `${name} HAS BEEN UPDATED`,
           toastType: "info",
         })
-      : addProductToDb({
-          url: `/api/cartLists`,
-          listType: "cartList",
-          dispatchType: "ADD_PRODUCT_TO_CART",
+      : addProductToCart({
+          url: `${CART_API}`,
           productId: productId,
-          toastMsg: `${productToBeAdded.name} HAS BEEN ADDED TO CART`,
+          toastMsg: `${name} HAS BEEN ADDED TO CART`,
           toastType: "success",
         });
   };
@@ -48,7 +57,7 @@ const AddToCartButton = ({ productId, inStock }) => {
     <React.Fragment>
       {inStock ? (
         <button className={styles.btn} onClick={handleAddToCart}>
-          {productToBeAdded.isInCartList ? (
+          {isInCartList ? (
             <React.Fragment>
               <span>GO TO CART</span>
               <FaArrowRight className={styles.arrowIcon} />

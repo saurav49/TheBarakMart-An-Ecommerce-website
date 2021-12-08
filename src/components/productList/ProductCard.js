@@ -18,6 +18,8 @@ const ProductCard = ({
   fastDelivery,
   inStock,
   offer,
+  isInWishList,
+  isInCartList,
 }) => {
   const navigate = useNavigate();
 
@@ -31,7 +33,12 @@ const ProductCard = ({
         {dismissBtn ? (
           <CancelButton productId={productId} index={index} stateType={type} />
         ) : inStock ? (
-          <LikeButton productId={productId} styleType={"VERTICLE_CARD"} />
+          <LikeButton
+            productId={productId}
+            styleType={"VERTICLE_CARD"}
+            name={name}
+            isInWishList={isInWishList}
+          />
         ) : null}
         <ProductImage id={productId} src={image} inStock={inStock} />
         <div
@@ -54,7 +61,12 @@ const ProductCard = ({
             )}
           </p>
         </div>
-        <AddToCartButton productId={productId} inStock={inStock} />
+        <AddToCartButton
+          productId={productId}
+          inStock={inStock}
+          isInCartList={isInCartList}
+          name={name}
+        />
       </div>
     </React.Fragment>
   );

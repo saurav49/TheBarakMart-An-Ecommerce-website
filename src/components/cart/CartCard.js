@@ -3,6 +3,7 @@ import { FaPlus, FaMinus, RiDeleteBin5Fill } from "../../icons/icon";
 import styles from "./CartCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../index";
+import { CART_API } from "../../urls";
 
 const CartCard = ({
   index,
@@ -15,48 +16,42 @@ const CartCard = ({
   fastDelivery,
   inStock,
   offer,
+  quantity,
 }) => {
-  const { state, updateCartQuantity, removeProductFromDb, isLoading } =
+  const { state, updateCartQuantity, removeProductFromCart, isLoading } =
     useDataContext();
-
-  const productToBeAdded = state.productList.filter(
-    (product) => product.productId === productId
-  )[0];
 
   const handleCartQuantity = ({ type }) => {
     switch (type) {
       case "INCREMENT":
         updateCartQuantity({
-          url: `/api/cartLists`,
+          url: `${CART_API}`,
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productId,
           productIndex: index,
           updateType: "INCREMENT",
-          toastMsg: `${productToBeAdded.name} QUANTITY HAS BEEN INCREASES`,
+          toastMsg: `${name} QUANTITY HAS BEEN INCREASES`,
           toastType: "success",
         });
         break;
 
       case "DECREMENT":
         updateCartQuantity({
-          url: `/api/cartLists`,
+          url: `${CART_API}`,
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productId,
           productIndex: index,
           updateType: "DECREMENT",
-          toastMsg: `${productToBeAdded.name} QUANTITY HAS BEEN DECREASED`,
+          toastMsg: `${name} QUANTITY HAS BEEN DECREASED`,
           toastType: "success",
         });
         break;
 
       case "REMOVE":
-        removeProductFromDb({
-          url: `/api/cartLists`,
-          listType: "cartList",
-          dispatchType: `REMOVE_PRODUCT_FROM_CART`,
+        removeProductFromCart({
+          url: `${CART_API}`,
           productId: productId,
-          productIndex: index,
-          toastMsg: `${productToBeAdded.name} HAS BEEN REMOVED`,
+          toastMsg: `${name} HAS BEEN REMOVED`,
           toastType: "error",
         });
         break;
@@ -79,9 +74,9 @@ const CartCard = ({
         <h3> {name} </h3>
 
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h3 style={{ padding: "0em 1em 0em 0em" }}> ₹ {price} </h3>
+          <h3 style={{ padding: "0em 1em 0em 0em" }}>₹ {price}</h3>
 
-          {state.cartList.find((product) => product.productId === productId)[
+          {state.cartList.find((product) => product._id === productId)[
             "quantity"
           ] === 1 ? (
             <button
@@ -101,7 +96,7 @@ const CartCard = ({
 
           <span>
             {
-              state.cartList.find((product) => product.productId === productId)[
+              state.cartList.find((product) => product._id === productId)[
                 "quantity"
               ]
             }

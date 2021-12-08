@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { ProductCard, SearchBar } from "../index";
+import React, { useState, useEffect } from "react";
+import { ProductCard, SearchBar, Toast } from "../index";
 import { useDataContext } from "../../hook/index";
 import styles from "./ProductList.module.css";
+import { updateProductsWithWishListAndCartStatus } from "../../context/reducerFunc";
 
 const ProductList = () => {
-  const { state } = useDataContext();
+  const { state, isLoading } = useDataContext();
 
+  const [finalData, setFinalData] = useState([]);
   const [input, setInput] = useState("");
   const [searchProductList, setSearchProductList] = useState();
 
@@ -66,34 +68,61 @@ const ProductList = () => {
         state.filterStates.includeOutOfStock
       ));
 
+  useEffect(() => {
+    setFinalData(
+      updateProductsWithWishListAndCartStatus(
+        filteredData,
+        state.wishList,
+        state.cartList
+      )
+    );
+  }, [filteredData, state.cartList, state.wishList]);
+
   return (
     <div className={styles.productListContainer}>
       <SearchBar input={input} onChange={updateInput} />
       <h1 style={{ marginLeft: "1em" }}> All Products </h1>
       <div className={styles.productList}>
-        {filteredData.map(
-          (
-            { _id, name, desc, image, price, fastDelivery, inStock, offer },
-            index
-          ) => {
-            return (
-              <ProductCard
-                key={_id}
-                productId={_id}
-                index={index}
-                dismissBtn={false}
-                name={name}
-                desc={desc}
-                image={image}
-                price={price}
-                fastDelivery={fastDelivery}
-                inStock={inStock}
-                offer={offer}
-              />
-            );
-          }
-        )}
+        {finalData.length > 0 &&
+          finalData.map(
+            (
+              {
+                _id,
+                name,
+                desc,
+                image,
+                price,
+                fastDelivery,
+                inStock,
+                offer,
+                isInWishList,
+                isInCartList,
+              },
+              index
+            ) => {
+              return (
+                <ProductCard
+                  key={_id}
+                  productId={_id}
+                  index={index}
+                  dismissBtn={false}
+                  name={name}
+                  desc={desc}
+                  image={image}
+                  price={price}
+                  fastDelivery={fastDelivery}
+                  inStock={inStock}
+                  offer={offer}
+                  isInWishList={isInWishList}
+                  isInCartList={isInCartList}
+                />
+              );
+            }
+          )}
       </div>
+      {isLoading && (
+        <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
+      )}
     </div>
   );
 };

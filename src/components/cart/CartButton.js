@@ -3,11 +3,13 @@ import { BiCartAlt } from "../../icons/icon";
 import { useDataContext } from "../../hook/index";
 import styles from "./CartCard.module.css";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../hook/index";
 
 const CartButton = () => {
   const {
     state: { cartList },
   } = useDataContext();
+  const { token } = useAuthContext();
 
   let navigate = useNavigate();
 
@@ -18,11 +20,11 @@ const CartButton = () => {
   return (
     <div>
       <button onClick={handleCartDisplay} className={styles.cartBadgeBtn}>
-        {cartList.length === 0 ? null : (
+        {cartList.length > 0 && token ? (
           <div className={styles.badgeNumber}>
             <span>{cartList.length}</span>
           </div>
-        )}
+        ) : null}
         <BiCartAlt style={{ fontSize: "1.85rem", color: "#fff" }} />
       </button>
       <p

@@ -3,19 +3,17 @@ import { FaRegHeart, FaHeart } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../index";
+import { WISHLIST_API } from "../../urls";
 
-const LikeButton = ({ productId, styleType }) => {
-  const {
-    state,
-    addProductToDb,
-    removeProductFromDb,
+const LikeButton = ({ name, productId, styleType, isInWishList }) => {
+  const { state, addProductToWishlist, removeProductFromWishlist, isLoading } =
+    useDataContext();
 
-    isLoading,
-  } = useDataContext();
+  // const productToBeAdded = state.productList.filter(
+  //   (product) => product._id === productId
+  // )[0];
 
-  const productToBeAdded = state.productList.filter(
-    (product) => product._id === productId
-  )[0];
+  // console.log({ productToBeAdded });
 
   // Dynamic style for verticle and horizontal cards
   const likeBtnStyle =
@@ -24,23 +22,17 @@ const LikeButton = ({ productId, styleType }) => {
       : styles.btnWishDetailCard;
 
   const handleLikeBtn = () => {
-    console.log("handleLikeBtn", state.toast);
-
-    productToBeAdded.isInWishList
-      ? removeProductFromDb({
-          url: `/api/wishLists`,
-          listType: "wishList",
-          dispatchType: "REMOVE_PRODUCT_FROM_WISHLIST",
+    isInWishList
+      ? removeProductFromWishlist({
+          url: `${WISHLIST_API}`,
           productId: productId,
-          toastMsg: `${productToBeAdded.name} has been removed from wishlist`,
+          toastMsg: `${name} has been removed from wishlist`,
           toastType: "error",
         })
-      : addProductToDb({
-          url: "/api/wishLists",
-          listType: "wishList",
-          dispatchType: "ADD_PRODUCT_TO_WISHLIST",
+      : addProductToWishlist({
+          url: `${WISHLIST_API}`,
           productId: productId,
-          toastMsg: `${productToBeAdded.name} has been added to wishlist`,
+          toastMsg: `${name} has been added to wishlist`,
           toastType: "success",
         });
   };
@@ -49,7 +41,7 @@ const LikeButton = ({ productId, styleType }) => {
     <React.Fragment>
       <div>
         <button className={likeBtnStyle} onClick={handleLikeBtn}>
-          {productToBeAdded.isInWishList ? (
+          {isInWishList ? (
             <FaHeart className={styles.heartIcon} />
           ) : (
             <FaRegHeart className={styles.heartIcon} />

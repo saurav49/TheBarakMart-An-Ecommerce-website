@@ -7,26 +7,21 @@ const Initialize = () => {
 
   useEffect(() => {
     fetchProductAndAdd({
-      url: `${PRODUCT_API}`,
-      dispatchType: "ADD_TO_PRODUCT",
-      listType: "products",
-    });
-    console.log("UTILS");
-  }, []);
-
-  useEffect(() => {
-    fetchProductAndAdd({
       url: `${WISHLIST_API}`,
       dispatchType: "ADD_TO_WISHLIST",
       listType: "wishList",
     });
-  }, []);
 
-  useEffect(() => {
     fetchProductAndAdd({
       url: `${CART_API}`,
       dispatchType: "ADD_TO_CART",
       listType: "cartList",
+    });
+
+    fetchProductAndAdd({
+      url: `${PRODUCT_API}`,
+      dispatchType: "ADD_TO_PRODUCT",
+      listType: "products",
     });
   }, []);
 };

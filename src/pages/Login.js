@@ -23,6 +23,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const handleLoginUsingdefaultAccount = () => {
+    setUsername("user1");
+    setPassword("Users49!");
+    handleLogin("user1", "Users49!", setUsername, setPassword);
+  };
+
   return (
     <div className={styles.loginWrapper}>
       <div className={styles.loginDiv}>
@@ -95,6 +101,13 @@ const Login = () => {
               <span>LOGIN</span>
             )}
             {!showLoader && <RiLoginCircleFill className={styles.signupIcon} />}
+          </button>
+          <button
+            className={`btn btn-dark m-1`}
+            onClick={() => handleLoginUsingdefaultAccount()}
+            style={{ margin: "0.5em 0em", padding: "0.5em" }}
+          >
+            Login with default account
           </button>
           <button
             className={styles.redirectBtn}

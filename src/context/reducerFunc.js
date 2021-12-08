@@ -1,5 +1,14 @@
 export const reducerFunc = (state, action) => {
   switch (action.type) {
+    case "ADD_TO_CART":
+      return {
+        ...state,
+        cartList: updateCartPageProductWithPrice(action.payload),
+      };
+
+    case "ADD_TO_WISHLIST":
+      return { ...state, wishList: action.payload };
+
     case "ADD_TO_PRODUCT":
       const updateProductStatus = (products) => {
         return updateProductsWithWishListAndCartStatus(
@@ -11,17 +20,12 @@ export const reducerFunc = (state, action) => {
 
       return { ...state, productList: updateProductStatus(action.payload) };
 
-    case "ADD_TO_CART":
-      return { ...state, cartList: action.payload };
-
-    case "ADD_TO_WISHLIST":
-      return { ...state, wishList: action.payload };
-
     case "ADD_PRODUCT_TO_WISHLIST":
+      console.log("ADD_PRODUCT_TO_WISHLIST", action);
       return {
         ...state,
         productList: state.productList.map((product) =>
-          product.productId === action.productId
+          product._id === action.productId
             ? { ...product, isInWishList: true }
             : { ...product }
         ),
@@ -35,12 +39,12 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         productList: state.productList.map((product) =>
-          product.productId === action.productId
+          product._id === action.productId
             ? { ...product, isInWishList: false }
             : { ...product }
         ),
         wishList: state.wishList.filter(
-          (item) => item.productId !== action.productId
+          (item) => item._id !== action.productId
         ),
       };
 
@@ -49,10 +53,10 @@ export const reducerFunc = (state, action) => {
         ...state,
         cartList: [
           ...state.cartList,
-          { ...action.payload, quantity: 1, isInCartList: true },
+          { ...action.payload, isInCartList: true },
         ],
         productList: state.productList.map((product) =>
-          product.productId === action.productId
+          product._id === action.productId
             ? { ...product, isInCartList: true }
             : { ...product }
         ),
@@ -62,12 +66,12 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         productList: state.productList.map((product) =>
-          product.productId === action.productId
+          product._id === action.productId
             ? { ...product, isInCartList: false }
             : { ...product }
         ),
         cartList: state.cartList.filter(
-          (product) => product.productId !== action.productId
+          (product) => product._id !== action.productId
         ),
       };
 
@@ -75,7 +79,7 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         cartList: state.cartList.map((product) =>
-          product.productId === action.productId
+          product._id === action.productId
             ? {
                 ...product,
                 quantity: action.payload,
@@ -135,12 +139,10 @@ export const reducerFunc = (state, action) => {
 };
 
 const handleCheckingStatus = (list, product) => {
-  return (
-    list.find((item) => item.productId === product.productId) !== undefined
-  );
+  return list.find((item) => item._id === product._id) !== undefined;
 };
 
-const updateProductsWithWishListAndCartStatus = (
+export const updateProductsWithWishListAndCartStatus = (
   productList,
   wishList,
   cartList
@@ -168,19 +170,28 @@ const updateProductsWithWishListAndCartStatus = (
   return productList;
 };
 
-const updatePrice = (
-  productList,
-  cartList,
-  productId,
-  updateType,
-  quantity
-) => {
+const updateCartPageProductWithPrice = (cartList) => {
+  return cartList.map((product) => {
+    return { ...product, price: product.price * product.quantity };
+  });
+};
+
+const updatePrice = (productList, cartList, productId, updateType) => {
   return updateType === "INCREMENT"
-    ? cartList.filter((product) => product.productId === productId)[0].price *
-        quantity
-    : cartList.filter((product) => product.productId === productId)[0].price -
-        productList.filter((product) => product.productId === productId)[0]
-          .price;
+    ? parseFloat(
+        cartList.filter((product) => product._id === productId)[0].price
+      ) +
+        parseFloat(
+          productList.filter((product) => product._id === productId)[0].price
+        )
+    : (
+        parseFloat(
+          cartList.filter((product) => product._id === productId)[0].price
+        ) -
+        parseFloat(
+          productList.filter((product) => product._id === productId)[0].price
+        )
+      ).toFixed(2);
 };
 
 const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {

@@ -35,13 +35,24 @@ const WishListItems = ({ wishList }) => {
     <div>
       {wishList.map(
         (
-          { productId, name, desc, image, price, fastDelivery, inStock, offer },
+          {
+            _id,
+            name,
+            desc,
+            image,
+            price,
+            fastDelivery,
+            inStock,
+            offer,
+            isInWishlist,
+            isInCartList,
+          },
           index
         ) => {
           return (
             <ProductCard
-              key={productId}
-              productId={productId}
+              key={_id}
+              productId={_id}
               index={index}
               type="wishList"
               dismissBtn={true}
@@ -52,6 +63,8 @@ const WishListItems = ({ wishList }) => {
               fastDelivery={fastDelivery}
               inStock={inStock}
               offer={offer}
+              isInWishlist={isInWishlist}
+              isInCartList={isInCartList}
             />
           );
         }
