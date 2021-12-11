@@ -76,7 +76,14 @@ const ProductList = () => {
         state.cartList
       )
     );
-  }, [filteredData, state.cartList, state.wishList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    state.cartList,
+    state.wishList,
+    state.filterStates.sortBy,
+    state.filterStates.includeFastDelivery,
+    state.filterStates.includeOutOfStock,
+  ]);
 
   return (
     <div className={styles.productListContainer}>
