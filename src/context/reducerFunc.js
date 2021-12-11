@@ -3,11 +3,11 @@ export const reducerFunc = (state, action) => {
     case "ADD_TO_CART":
       return {
         ...state,
-        cartList: updateCartPageProductWithPrice(action.payload),
+        cartList: action.payload,
       };
 
     case "ADD_TO_WISHLIST":
-      return { ...state, wishList: action.payload };
+      return { ...state, wishList: addWishlistItemStatus(action.payload) };
 
     case "ADD_TO_PRODUCT":
       const updateProductStatus = (products) => {
@@ -170,11 +170,20 @@ export const updateProductsWithWishListAndCartStatus = (
   return productList;
 };
 
-const updateCartPageProductWithPrice = (cartList) => {
-  return cartList.map((product) => {
-    return { ...product, price: product.price * product.quantity };
+const addWishlistItemStatus = (wishList) => {
+  return wishList.map((product) => {
+    return { ...product, isInCartList: false };
   });
 };
+
+// const updateCartPageProductWithPrice = (cartList) => {
+//   return cartList.map((product) => {
+//     return {
+//       ...product,
+//       price: product.price * product.quantity,
+//     };
+//   });
+// };
 
 const updatePrice = (productList, cartList, productId, updateType) => {
   return updateType === "INCREMENT"
@@ -194,35 +203,35 @@ const updatePrice = (productList, cartList, productId, updateType) => {
       ).toFixed(2);
 };
 
-const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
-  const { productId } = productToBeAdded;
+// const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
+//   const { productId } = productToBeAdded;
 
-  let newCartList = [
-    ...cartList,
-    { ...productToBeAdded, quantity: 1, isInCartList: true },
-  ];
+//   let newCartList = [
+//     ...cartList,
+//     { ...productToBeAdded, quantity: 1, isInCartList: true },
+//   ];
 
-  console.log("HELLO_DING_DONG", { newCartList });
+//   console.log("HELLO_DING_DONG", { newCartList });
 
-  if (newCartList.length > 0) {
-    newCartList = cartList.map((product) => {
-      if (productId === product["productId"]) {
-        return {
-          ...product,
-          quantity: product["quantity"] + 1,
-          isInCartList: true,
-        };
-      } else {
-        return {
-          ...product,
-        };
-      }
-    });
-  }
+//   if (newCartList.length > 0) {
+//     newCartList = cartList.map((product) => {
+//       if (productId === product["productId"]) {
+//         return {
+//           ...product,
+//           quantity: product["quantity"] + 1,
+//           isInCartList: true,
+//         };
+//       } else {
+//         return {
+//           ...product,
+//         };
+//       }
+//     });
+//   }
 
-  console.log("new_CART_LIST", newCartList);
-  return newCartList;
-};
+//   console.log("new_CART_LIST", newCartList);
+//   return newCartList;
+// };
 
 // if (cartList.length === 0) {
 //   newCartList.push({ ...productToBeAdded, quantity: 1, isInCartList: true });

@@ -7,7 +7,11 @@ const Footer = () => {
       <p className={styles.footerBrandName}>Barak Mart</p>
       <p className={styles.footerLink}>
         by
-        <a target="_blank" href="https://github.com/saurav49">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/saurav49"
+        >
           @SauravBiswas
         </a>
       </p>

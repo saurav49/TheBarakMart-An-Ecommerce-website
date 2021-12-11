@@ -3,21 +3,18 @@ import { ImCancelCircle } from "../../icons/icon";
 import { useDataContext } from "../../hook/index";
 import styles from "./ProductCard.module.css";
 import { Toast } from "../index";
+import { WISHLIST_API } from "../../urls";
 
 const CancelButton = ({ productId, stateType }) => {
-  const { state, removeProductFromDb, isLoading } = useDataContext();
-
-  const type = stateType === "cartList" ? "CART" : "WISHLIST";
+  const { state, removeProductFromWishlist, isLoading } = useDataContext();
 
   const productToBeRemoved = state.productList.filter(
     (product) => product._id === productId
   )[0];
 
   const handleCancelBtn = () => {
-    removeProductFromDb({
-      url: `/api/${stateType}s`,
-      listType: stateType,
-      dispatchType: `REMOVE_PRODUCT_FROM_${type}`,
+    removeProductFromWishlist({
+      url: WISHLIST_API,
       productId: productId,
       toastMsg: `${productToBeRemoved.name} HAS BEEN REMOVED`,
       toastType: "error",

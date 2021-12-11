@@ -50,8 +50,8 @@ const CategoryPage = () => {
 export { CategoryPage };
 
 // CATEGORY PAGE FILTER
-{
-  /* <React.Fragment>
+
+/* <React.Fragment>
         <div className={filterStyle.filterContainer}>
           <button onClick={() => setShowFilters((showFilters) => !showFilters)}>
             <p className={filterStyle.filterTextStyle}>Filters</p>
@@ -114,4 +114,3 @@ export { CategoryPage };
           </fieldset>
         </div>
       </React.Fragment> */
-}

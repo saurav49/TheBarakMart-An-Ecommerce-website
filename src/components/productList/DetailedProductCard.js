@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ProductCard.module.css";
 import { AddToCartButton, LikeButton, ProductCard } from "../index";
 import { useParams } from "react-router";

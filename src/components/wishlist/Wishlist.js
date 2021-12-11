@@ -1,7 +1,8 @@
 import React from "react";
 import { useDataContext } from "../../hook/index";
 import { ProductCard } from "../index";
-import { EmptyWishListImage } from "./undraw_Wishlist_re_m7tv.svg";
+import EmptyWishListImage from "./undraw_Wishlist_re_m7tv.svg";
+import styles from "./Wishlist.module.css";
 
 const Wishlist = () => {
   const {
@@ -9,7 +10,7 @@ const Wishlist = () => {
   } = useDataContext();
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div className={styles.wishListWrapper}>
       {wishList.length > 0 ? (
         <WishListItems wishList={wishList} />
       ) : (
@@ -21,32 +22,27 @@ const Wishlist = () => {
 
 const EmptyWishListPage = () => {
   return (
-    <div>
-      <img src={EmptyWishListImage} alt="empty-wishlist-image" />
-      <h2>Your Wishlist is empty!</h2>
-      <p>Seems like you don't have wishes here</p>
-      <p>Make a wish!</p>
+    <div className={styles.emptyWishlistWrapper}>
+      <img
+        className={styles.emptyWishlistImage}
+        src={EmptyWishListImage}
+        alt="empty-wishlist"
+      />
+      <div className={styles.emptyWishlistDesc}>
+        <h2>Your Wishlist is empty!</h2>
+        <p>Seems like you don't have wishes here</p>
+        <p>Make a wish!</p>
+      </div>
     </div>
   );
 };
 
 const WishListItems = ({ wishList }) => {
   return (
-    <div>
+    <div className={styles.wishList}>
       {wishList.map(
         (
-          {
-            _id,
-            name,
-            desc,
-            image,
-            price,
-            fastDelivery,
-            inStock,
-            offer,
-            isInWishlist,
-            isInCartList,
-          },
+          { _id, name, desc, image, price, fastDelivery, inStock, offer },
           index
         ) => {
           return (
@@ -63,8 +59,6 @@ const WishListItems = ({ wishList }) => {
               fastDelivery={fastDelivery}
               inStock={inStock}
               offer={offer}
-              isInWishlist={isInWishlist}
-              isInCartList={isInCartList}
             />
           );
         }

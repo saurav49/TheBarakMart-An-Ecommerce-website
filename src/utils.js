@@ -23,6 +23,7 @@ const Initialize = () => {
       dispatchType: "ADD_TO_PRODUCT",
       listType: "products",
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 

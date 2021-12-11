@@ -3,8 +3,8 @@ import { FaCheckCircle } from "react-icons/fa";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 
 const Toast = ({ message, type }) => {
-  // const ICON = type === "success" ? FaCheckCircle : BsFillInfoCircleFill;
-  const ICON = FaCheckCircle;
+  const ICON = type === "success" ? FaCheckCircle : BsFillInfoCircleFill;
+ 
 
   return (
     <React.Fragment>

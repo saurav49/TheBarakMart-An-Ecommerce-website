@@ -9,7 +9,7 @@ const NotFoundPage = () => {
   return (
     <div className={styles.notFoundWrapper}>
       <div className={styles.notFoundImageWrapper}>
-        <img src={NotFoundImage} alt="not-found-image" />
+        <img src={NotFoundImage} alt="not-found" />
       </div>
       <div className={styles.notFoundText}>
         <h2>404</h2>

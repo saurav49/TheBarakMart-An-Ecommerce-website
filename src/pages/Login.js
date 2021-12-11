@@ -15,19 +15,18 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const defaultUser = {
+    username: "user1",
+    password: "Users49!",
+  };
+
+  const [username, setUsername] = useState(defaultUser.username);
+  const [password, setPassword] = useState(defaultUser.password);
   const [showPassword, setShowPassword] = useState(false);
 
   const { handleLogin, showLoader } = useAuthContext();
 
   const navigate = useNavigate();
-
-  const handleLoginUsingdefaultAccount = () => {
-    setUsername("user1");
-    setPassword("Users49!");
-    handleLogin("user1", "Users49!", setUsername, setPassword);
-  };
 
   return (
     <div className={styles.loginWrapper}>
@@ -102,13 +101,13 @@ const Login = () => {
             )}
             {!showLoader && <RiLoginCircleFill className={styles.signupIcon} />}
           </button>
-          <button
+          {/* <button
             className={`btn btn-dark m-1`}
             onClick={() => handleLoginUsingdefaultAccount()}
             style={{ margin: "0.5em 0em", padding: "0.5em" }}
           >
             Login with default account
-          </button>
+          </button> */}
           <button
             className={styles.redirectBtn}
             onClick={() => navigate("/signup")}

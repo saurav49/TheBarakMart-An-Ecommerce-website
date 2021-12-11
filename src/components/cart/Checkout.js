@@ -5,7 +5,7 @@ import checkoutStyles from "./Checkout.module.css";
 import { useDataContext } from "../../hook/index";
 import { useNavigate } from "react-router";
 
-const Checkout = ({}) => {
+const Checkout = () => {
   const { state } = useDataContext();
   const navigate = useNavigate();
 

@@ -1,27 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext } from "../../hook/index";
 import { Toast } from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
-import { CART_API } from "../../urls";
+import { CART_API, WISHLIST_API } from "../../urls";
 
-const AddToCartButton = ({ name, productId, inStock, isInCartList }) => {
+const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
   const {
     state,
     addProductToCart,
     updateCartQuantity,
     isLoading,
-    fetchProductAndAdd,
+    removeProductFromWishlist,
   } = useDataContext();
-
-  useEffect(() => {
-    fetchProductAndAdd({
-      url: `${CART_API}`,
-      dispatchType: "ADD_TO_CART",
-      listType: "cartList",
-    });
-  }, [state.cartList]);
 
   // To check whether item is in cartList
   const checkIsInCartList = (cartList, productId) => {
@@ -30,7 +22,16 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList }) => {
 
   const navigate = useNavigate();
 
-  // addProductToCart = async ({ url, productId, toastMsg, toastType })
+  if (type === "wishList" && checkIsInCartList(state.cartList, productId)) {
+    console.log({ type }, checkIsInCartList(state.cartList, productId));
+
+    removeProductFromWishlist({
+      url: WISHLIST_API,
+      productId: productId,
+      toastMsg: `${name} product added to cart`,
+      toastType: "success",
+    });
+  }
 
   const handleAddToCart = () => {
     isInCartList

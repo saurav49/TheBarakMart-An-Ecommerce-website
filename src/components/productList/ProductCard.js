@@ -66,6 +66,7 @@ const ProductCard = ({
           inStock={inStock}
           isInCartList={isInCartList}
           name={name}
+          type={type}
         />
       </div>
     </React.Fragment>

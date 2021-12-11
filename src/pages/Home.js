@@ -5,6 +5,7 @@ import { ImArrowRight } from "../icons/icon";
 import { useDataContext } from "../hook/index";
 import { ProductCard } from "../components";
 import { useNavigate } from "react-router";
+import uniqid from "uniqid";
 
 const Home = () => {
   const {
@@ -14,22 +15,27 @@ const Home = () => {
 
   const categories = [
     {
+      _id: uniqid(),
       name: "T-shirt",
       img: "https://www.prowrestlingtees.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/b/a/barbershopwindow9120-1-26f3.png",
     },
     {
+      _id: uniqid(),
       name: "Face Mask",
       img: "https://www.prowrestlingtees.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/z/e/zebratalk1026-1.png",
     },
     {
+      _id: uniqid(),
       name: "Mugs",
       img: "https://www.prowrestlingtees.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/o/r/orange_cassidy_-_freshly_squeezed_11_oz._mug.png",
     },
     {
+      _id: uniqid(),
       name: "Hoodie",
       img: "https://www.prowrestlingtees.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/c/o/colt9068-1.png",
     },
     {
+      _id: uniqid(),
       name: "Beanie",
       img: "https://www.prowrestlingtees.com/pub/media/catalog/product/cache/image/e9c3970ab036de70892d86c6d221abfe/z/e/zebratalk1013.png",
     },
@@ -38,8 +44,6 @@ const Home = () => {
   const topSellingItems = productList.filter(
     (product, index) => index % 2 === 0 && product.inStock
   );
-
-  console.log({ topSellingItems });
 
   const navigateToProductsPage = () => {
     navigate("/products");
@@ -65,13 +69,13 @@ const Home = () => {
             Thoughtfully curated collection to help you get started with your
             personal finance journey.
           </p>
-          <a
+          <button
             className={styles.heroBtn}
             onClick={() => navigateToProductsPage()}
           >
             Start Shopping
             <ImArrowRight className={styles.heroBtnIcon} />
-          </a>
+          </button>
         </div>
         <div className={styles.heroImage}>
           <img src={loginImage} alt="home" />
@@ -81,11 +85,12 @@ const Home = () => {
       <div className={styles.categoryWrapper}>
         <h2>Categories</h2>
         <div className={styles.categoryComponent}>
-          {categories.map(({ name, img }) => {
+          {categories.map(({ _id, name, img }) => {
             return (
               <div
                 className={styles.categoryCard}
                 onClick={() => navigateToCategoryPage(name)}
+                key={_id}
               >
                 <img src={img} alt={name} />
                 <p>{name}</p>

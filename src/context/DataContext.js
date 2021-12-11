@@ -31,7 +31,7 @@ export const DataProvider = ({ children }) => {
         dispatch({ type: dispatchType, payload: data[listType] });
       }
     } catch (error) {
-      console.log("fetchProductAndAdd", error);
+      console.log("fetchProductAndAdd", { error });
     }
   };
 
@@ -268,6 +268,8 @@ export const DataProvider = ({ children }) => {
     try {
       const response = await axios.delete(`${url}/${productId}`);
 
+      console.log({ state });
+
       // Updating Toast
       state.toast.toastMsg = toastMsg;
       state.toast.toastType = toastType;
@@ -282,7 +284,7 @@ export const DataProvider = ({ children }) => {
         setLoading(false);
       }
     } catch (error) {
-      console.log("removeProductFromDb", error);
+      console.log("removeProductFromDb", { error });
       setLoading(false);
     } finally {
       setLoading(false);
