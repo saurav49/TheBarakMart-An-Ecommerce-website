@@ -3,9 +3,17 @@
   width: 70%;
   max-width: 800px;
   height: auto;
-  padding: 2em;
+  padding: 13em 2em;
   justify-content: space-between;
   align-items: center;
+}
+
+.emptyCart {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: center;
+  margin-top: 5rem;
 }
 
 @media (max-width: 500px) {

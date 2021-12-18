@@ -17,12 +17,16 @@ const CartButton = () => {
     navigate("/cart");
   };
 
+  // console.log(cartList);
+
   return (
     <div>
       <button onClick={handleCartDisplay} className={styles.cartBadgeBtn}>
-        {cartList.length > 0 && token ? (
+        {cartList.hasOwnProperty("userId") &&
+        cartList.cartItems.length > 0 &&
+        token ? (
           <div className={styles.badgeNumber}>
-            <span>{cartList.length}</span>
+            <span>{cartList.cartItems.length}</span>
           </div>
         ) : null}
         <BiCartAlt style={{ fontSize: "1.85rem", color: "#fff" }} />

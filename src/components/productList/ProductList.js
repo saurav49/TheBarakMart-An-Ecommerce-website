@@ -3,6 +3,7 @@ import { ProductCard, SearchBar, Toast } from "../index";
 import { useDataContext } from "../../hook/index";
 import styles from "./ProductList.module.css";
 import { updateProductsWithWishListAndCartStatus } from "../../context/reducerFunc";
+import Loader from "react-loader-spinner";
 
 const ProductList = () => {
   const { state, isLoading } = useDataContext();
@@ -87,46 +88,54 @@ const ProductList = () => {
 
   return (
     <div className={styles.productListContainer}>
-      <SearchBar input={input} onChange={updateInput} />
-      <h1 style={{ marginLeft: "1em" }}> All Products </h1>
-      <div className={styles.productList}>
-        {finalData.length > 0 &&
-          finalData.map(
-            (
-              {
-                _id,
-                name,
-                desc,
-                image,
-                price,
-                fastDelivery,
-                inStock,
-                offer,
-                isInWishList,
-                isInCartList,
-              },
-              index
-            ) => {
-              return (
-                <ProductCard
-                  key={_id}
-                  productId={_id}
-                  index={index}
-                  dismissBtn={false}
-                  name={name}
-                  desc={desc}
-                  image={image}
-                  price={price}
-                  fastDelivery={fastDelivery}
-                  inStock={inStock}
-                  offer={offer}
-                  isInWishList={isInWishList}
-                  isInCartList={isInCartList}
-                />
-              );
-            }
-          )}
-      </div>
+      {isLoading ? (
+        <div className={styles.loaderWrapper}>
+          <Loader type="TailSpin" color="#333" height={120} width={120} />
+        </div>
+      ) : (
+        <>
+          <SearchBar input={input} onChange={updateInput} />
+          <h1 style={{ marginLeft: "1em" }}> All Products </h1>
+          <div className={styles.productList}>
+            {finalData.length > 0 &&
+              finalData.map(
+                (
+                  {
+                    _id,
+                    name,
+                    desc,
+                    image,
+                    price,
+                    fastDelivery,
+                    inStock,
+                    offer,
+                    isInWishList,
+                    isInCartList,
+                  },
+                  index
+                ) => {
+                  return (
+                    <ProductCard
+                      key={_id}
+                      productId={_id}
+                      index={index}
+                      dismissBtn={false}
+                      name={name}
+                      desc={desc}
+                      image={image}
+                      price={price}
+                      fastDelivery={fastDelivery}
+                      inStock={inStock}
+                      offer={offer}
+                      isInWishList={isInWishList}
+                      isInCartList={isInCartList}
+                    />
+                  );
+                }
+              )}
+          </div>
+        </>
+      )}
       {isLoading && (
         <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
       )}

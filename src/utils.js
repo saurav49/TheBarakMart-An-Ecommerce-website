@@ -1,21 +1,23 @@
 import { useEffect } from "react";
 import { useDataContext } from "./hook/index";
 import { PRODUCT_API, WISHLIST_API, CART_API } from "./urls";
+import { useAuthContext } from "./hook/useAuth";
 
 const Initialize = () => {
-  const { fetchProductAndAdd } = useDataContext();
+  const { fetchProductAndAdd, initializeCartList, initiaizeWishlist } =
+    useDataContext();
+  const { userId } = useAuthContext();
 
   useEffect(() => {
-    fetchProductAndAdd({
+    console.log("HELLO");
+    initiaizeWishlist({
       url: `${WISHLIST_API}`,
-      dispatchType: "ADD_TO_WISHLIST",
-      listType: "wishList",
+      userId: userId,
     });
 
-    fetchProductAndAdd({
+    initializeCartList({
       url: `${CART_API}`,
-      dispatchType: "ADD_TO_CART",
-      listType: "cartList",
+      userId: userId,
     });
 
     fetchProductAndAdd({

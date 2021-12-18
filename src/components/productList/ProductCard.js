@@ -31,7 +31,7 @@ const ProductCard = ({
     <React.Fragment>
       <div className={styles.productCard}>
         {dismissBtn ? (
-          <CancelButton productId={productId} index={index} stateType={type} />
+          <CancelButton productId={productId} />
         ) : inStock ? (
           <LikeButton
             productId={productId}

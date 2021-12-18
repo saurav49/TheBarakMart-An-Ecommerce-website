@@ -11,11 +11,20 @@ const Checkout = () => {
 
   // Calculate Total Bill
   const reducer = (accumulator, currentValue) => {
-    return accumulator + Number.parseFloat(currentValue.price);
+    return (
+      accumulator +
+      Number.parseFloat(currentValue._id.price) *
+        Number.parseFloat(currentValue.quantity)
+    );
   };
 
   const calculateBill = () => {
-    return state.cartList.reduce(reducer, 0);
+    if (
+      state.cartList.hasOwnProperty("userId") &&
+      state.cartList.cartItems.length > 0
+    ) {
+      return state.cartList.cartItems.reduce(reducer, 0);
+    }
   };
 
   const handleGoToProducts = () => {
@@ -31,14 +40,8 @@ const Checkout = () => {
         ></div>
       )}
       <div className={checkoutStyles.checkoutContainer}>
-        {calculateBill() === 0 && (
-          <div
-            style={{
-              display: "flex",
-              flexDiection: "column",
-              alignItems: "center",
-            }}
-          >
+        {(calculateBill() === 0 || calculateBill() === undefined) && (
+          <div className={checkoutStyles.emptyCart}>
             <h2> Start adding products to cart</h2>
             <button
               className={styles.btn}

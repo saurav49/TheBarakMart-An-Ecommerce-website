@@ -1,19 +1,15 @@
 import React from "react";
 import { FaRegHeart, FaHeart } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
-import { useDataContext } from "../../hook/index";
+import { useDataContext, useAuthContext } from "../../hook/index";
 import { Toast } from "../index";
-import { WISHLIST_API } from "../../urls";
+import { WISHLIST_API, ADD_PRODUCT_TO_WISHLIST } from "../../urls";
 
 const LikeButton = ({ name, productId, styleType, isInWishList }) => {
   const { state, addProductToWishlist, removeProductFromWishlist, isLoading } =
     useDataContext();
 
-  // const productToBeAdded = state.productList.filter(
-  //   (product) => product._id === productId
-  // )[0];
-
-  // console.log({ productToBeAdded });
+  const { userId } = useAuthContext();
 
   // Dynamic style for verticle and horizontal cards
   const likeBtnStyle =
@@ -24,13 +20,13 @@ const LikeButton = ({ name, productId, styleType, isInWishList }) => {
   const handleLikeBtn = () => {
     isInWishList
       ? removeProductFromWishlist({
-          url: `${WISHLIST_API}`,
+          url: `${WISHLIST_API}/${userId}`,
           productId: productId,
           toastMsg: `${name} has been removed from wishlist`,
           toastType: "error",
         })
       : addProductToWishlist({
-          url: `${WISHLIST_API}`,
+          url: `${ADD_PRODUCT_TO_WISHLIST}/${userId}`,
           productId: productId,
           toastMsg: `${name} has been added to wishlist`,
           toastType: "success",

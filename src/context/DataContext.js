@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { createContext, useReducer, useState } from "react";
 import { reducerFunc } from "./reducerFunc";
 
+import { GET_ALL_WISHLIST_ITEMS } from "../urls";
+
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
@@ -9,8 +11,8 @@ export const DataProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(reducerFunc, {
     productList: [],
-    wishList: [],
-    cartList: [],
+    wishList: {},
+    cartList: {},
     filterStates: {
       sortBy: null,
       includeOutOfStock: true,
@@ -35,6 +37,68 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const initiaizeWishlist = async ({ url, userId }) => {
+    try {
+      setLoading(true);
+      if (!userId) {
+        state.toast.toastMsg = "UserId not present";
+        state.toast.toastType = "error";
+        return;
+      }
+
+      const { data } = await axios.post(url, { userId: `${userId}` });
+
+      if (data.success) {
+        dispatch({
+          type: "ADD_TO_WISHLIST",
+          payload: data.wishList,
+        });
+
+        const response = await axios.get(`${GET_ALL_WISHLIST_ITEMS}/${userId}`);
+
+        if (response.data.success) {
+          dispatch({
+            type: "ADD_TO_WISHLIST",
+            payload: response.data.wishList,
+          });
+        }
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log({ error });
+      state.toast.toastMsg = "error in initiaizeWishlist";
+      state.toast.toastType = "error";
+      setLoading(false);
+    }
+  };
+
+  const initializeCartList = async ({ url, userId }) => {
+    try {
+      setLoading(true);
+      if (!userId) {
+        state.toast.toastMsg = "UserId not present";
+        state.toast.toastType = "error";
+        return;
+      }
+      const { data } = await axios.post(url, { userId: `${userId}` });
+
+      if (data.success) {
+        dispatch({
+          type: "ADD_TO_CART",
+          payload: data.cartList,
+        });
+      }
+
+      setLoading(false);
+    } catch (error) {
+      console.log({ error });
+      state.toast.toastMsg = "error in initializeCartList";
+      state.toast.toastType = "error";
+      setLoading(false);
+    }
+  };
+
   const updateCartQuantity = async ({
     url,
     dispatchType,
@@ -43,13 +107,9 @@ export const DataProvider = ({ children }) => {
     toastMsg,
     toastType,
   }) => {
-    let currentQuantity = state.cartList.filter(
-      (product) => product._id === productId
-    )[0].quantity;
-
-    const idToUpdate = state.cartList.filter(
-      (product) => product._id === productId
-    )[0]._id;
+    let currentQuantity = state.cartList.cartItems.find(
+      ({ _id: { _id } }) => _id === productId
+    ).quantity;
 
     // Updating Toast
     state.toast.toastMsg = toastMsg;
@@ -62,17 +122,15 @@ export const DataProvider = ({ children }) => {
       : (currentQuantity = currentQuantity - 1);
 
     try {
-      const { data, status } = await axios.post(`${url}/${idToUpdate}`, {
-        product: { quantity: currentQuantity },
+      const { data, status } = await axios.post(`${url}`, {
+        product: { productId: productId, quantity: currentQuantity },
       });
-
-      console.log({ data }, { status });
 
       if (status === 200) {
         dispatch({
           type: dispatchType,
-          payload: data.cartItem.quantity,
-          productId: productId,
+          payload: data.updateItem.quantity,
+          productId: data.updateItem.productId,
           updateType: updateType,
         });
       }
@@ -103,8 +161,6 @@ export const DataProvider = ({ children }) => {
 
       setLoading(true);
 
-      console.log({ _id }, { itemNoId });
-
       const { data, status } = await axios.post(`${url}`, {
         product: { ...itemNoId },
       });
@@ -120,7 +176,6 @@ export const DataProvider = ({ children }) => {
     } catch (error) {
       console.log("addProductToDb", error);
     } finally {
-      console.log("FROM FINALLY ADD", { isLoading });
       setLoading(false);
     }
   };
@@ -164,6 +219,8 @@ export const DataProvider = ({ children }) => {
 
   const addProductToCart = async ({ url, productId, toastMsg, toastType }) => {
     try {
+      setLoading(true);
+
       const response = await axios.post(`${url}`, {
         product: { _id: productId, quantity: 1 },
       });
@@ -172,20 +229,15 @@ export const DataProvider = ({ children }) => {
       state.toast.toastMsg = toastMsg;
       state.toast.toastType = toastType;
 
-      setLoading(true);
-
       if (response.data.success) {
         dispatch({
           type: "ADD_PRODUCT_TO_CART",
-          payload: response.data.cartItem,
+          payload: response.data.cartList,
           productId: productId,
         });
-        fetchProductAndAdd({
-          url: `${url}`,
-          dispatchType: "ADD_TO_CART",
-          listType: "cartList",
-        });
       }
+
+      setLoading(false);
     } catch (error) {
     } finally {
       setLoading(false);
@@ -199,7 +251,9 @@ export const DataProvider = ({ children }) => {
     toastType,
   }) => {
     try {
-      const response = await axios.delete(`${url}/${productId}`);
+      const response = await axios.delete(`${url}`, {
+        data: { productId: `${productId}` },
+      });
 
       // Updating Toast
       state.toast.toastMsg = toastMsg;
@@ -242,19 +296,13 @@ export const DataProvider = ({ children }) => {
         dispatch({
           type: "ADD_PRODUCT_TO_WISHLIST",
           productId: productId,
-          payload: response.data.wishItem,
-        });
-        fetchProductAndAdd({
-          url: `${url}`,
-          dispatchType: "ADD_TO_WISHLIST",
-          listType: "wishList",
+          payload: response.data.wishList,
         });
         setLoading(false);
       }
     } catch (error) {
       console.log("addProductToDb", error);
     } finally {
-      console.log("FROM FINALLY ADD", { isLoading });
       setLoading(false);
     }
   };
@@ -266,9 +314,11 @@ export const DataProvider = ({ children }) => {
     toastType,
   }) => {
     try {
-      const response = await axios.delete(`${url}/${productId}`);
-
-      console.log({ state });
+      const response = await axios.delete(`${url}`, {
+        data: {
+          productId: `${productId}`,
+        },
+      });
 
       // Updating Toast
       state.toast.toastMsg = toastMsg;
@@ -307,6 +357,8 @@ export const DataProvider = ({ children }) => {
         removeProductFromCart,
         addProductToWishlist,
         removeProductFromWishlist,
+        initiaizeWishlist,
+        initializeCartList,
       }}
     >
       {children}

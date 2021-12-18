@@ -24,3 +24,11 @@ h1 {
 .categoryPageWrapper > h2 {
   margin: 1.5em 0em 1.5em 3em;
 }
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}

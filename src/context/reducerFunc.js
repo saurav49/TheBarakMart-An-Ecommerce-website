@@ -7,21 +7,20 @@ export const reducerFunc = (state, action) => {
       };
 
     case "ADD_TO_WISHLIST":
-      return { ...state, wishList: addWishlistItemStatus(action.payload) };
+      return { ...state, wishList: action.payload };
 
     case "ADD_TO_PRODUCT":
       const updateProductStatus = (products) => {
         return updateProductsWithWishListAndCartStatus(
           products,
-          state.wishList,
-          state.cartList
+          state.wishList.wishListItems,
+          state.cartList.cartItems
         );
       };
 
       return { ...state, productList: updateProductStatus(action.payload) };
 
     case "ADD_PRODUCT_TO_WISHLIST":
-      console.log("ADD_PRODUCT_TO_WISHLIST", action);
       return {
         ...state,
         productList: state.productList.map((product) =>
@@ -29,10 +28,11 @@ export const reducerFunc = (state, action) => {
             ? { ...product, isInWishList: true }
             : { ...product }
         ),
-        wishList: [
+
+        wishList: {
           ...state.wishList,
-          { ...action.payload, isInWishList: true },
-        ],
+          ...action.payload,
+        },
       };
 
     case "REMOVE_PRODUCT_FROM_WISHLIST":
@@ -43,18 +43,25 @@ export const reducerFunc = (state, action) => {
             ? { ...product, isInWishList: false }
             : { ...product }
         ),
-        wishList: state.wishList.filter(
-          (item) => item._id !== action.productId
-        ),
+        wishList: {
+          ...state.wishList,
+          wishListItems: state.wishList.wishListItems.filter(
+            ({ _id }) => _id._id !== action.productId
+          ),
+        },
       };
 
     case "ADD_PRODUCT_TO_CART":
       return {
         ...state,
-        cartList: [
-          ...state.cartList,
-          { ...action.payload, isInCartList: true },
-        ],
+        cartList: { ...state.cartList, ...action.payload },
+        // cartList: {
+        //   ...state.cartList,
+        //   cartItems: [
+        //     ...state.cartList.cartItems,
+        //     { ...action.payload, isInCartList: true },
+        //   ],
+        // },
         productList: state.productList.map((product) =>
           product._id === action.productId
             ? { ...product, isInCartList: true }
@@ -70,29 +77,30 @@ export const reducerFunc = (state, action) => {
             ? { ...product, isInCartList: false }
             : { ...product }
         ),
-        cartList: state.cartList.filter(
-          (product) => product._id !== action.productId
-        ),
+        cartList: {
+          ...state.cartList,
+          cartItems: state.cartList.cartItems.filter(
+            ({ _id }) => _id._id !== action.productId
+          ),
+        },
       };
 
     case "UPDATE_PRODUCT_QUANTITY_IN_CART":
       return {
         ...state,
-        cartList: state.cartList.map((product) =>
-          product._id === action.productId
-            ? {
-                ...product,
-                quantity: action.payload,
-                price: updatePrice(
-                  state.productList,
-                  state.cartList,
-                  action.productId,
-                  action.updateType,
-                  action.payload
-                ),
-              }
-            : { ...product }
-        ),
+        cartList: {
+          ...state.cartList,
+          cartItems: state.cartList.cartItems.map(({ _id, quantity }) =>
+            _id._id === action.productId
+              ? {
+                  _id: {
+                    ..._id,
+                  },
+                  quantity: action.payload,
+                }
+              : { _id: { ..._id }, quantity: quantity }
+          ),
+        },
       };
 
     case "DISPLAY_COMPONENT":
@@ -139,7 +147,12 @@ export const reducerFunc = (state, action) => {
 };
 
 const handleCheckingStatus = (list, product) => {
-  return list.find((item) => item._id === product._id) !== undefined;
+  if (list) {
+    return (
+      list.find(({ _id }) => _id === product._id || _id._id === product._id) !==
+      undefined
+    );
+  }
 };
 
 export const updateProductsWithWishListAndCartStatus = (
@@ -149,7 +162,7 @@ export const updateProductsWithWishListAndCartStatus = (
 ) => {
   if (wishList) {
     productList = productList.map((product) => {
-      if (handleCheckingStatus(wishList, product)) {
+      if (handleCheckingStatus(wishList.wishListItems, product)) {
         return { ...product, isInWishList: true };
       } else {
         return { ...product, isInWishList: false };
@@ -159,7 +172,7 @@ export const updateProductsWithWishListAndCartStatus = (
 
   if (cartList) {
     productList = productList.map((product) => {
-      if (handleCheckingStatus(cartList, product)) {
+      if (handleCheckingStatus(cartList.cartItems, product)) {
         return { ...product, isInCartList: true };
       } else {
         return { ...product, isInCartList: false };
@@ -170,11 +183,31 @@ export const updateProductsWithWishListAndCartStatus = (
   return productList;
 };
 
-const addWishlistItemStatus = (wishList) => {
-  return wishList.map((product) => {
-    return { ...product, isInCartList: false };
-  });
+export const updateWishListProductWithCartStatus = (wishList, cartList) => {
+  let list = [];
+
+  if (wishList.hasOwnProperty("userId") && cartList.hasOwnProperty("userId")) {
+    if (wishList.wishListItems.length > 0 && cartList.cartItems.length > 0) {
+      if (wishList.wishListItems[0]._id.hasOwnProperty("name")) {
+        list = wishList.wishListItems.map(({ _id }) => {
+          if (handleCheckingStatus(cartList.cartItems, _id)) {
+            return { _id: { ..._id, isInCartList: true, isInWishList: true } };
+          } else {
+            return { _id: { ..._id, isInCartList: false, isInWishList: true } };
+          }
+        });
+      }
+    }
+  }
+
+  return list;
 };
+
+// const addWishlistItemStatus = (wishList) => {
+//   return wishList.map((product) => {
+//     return { ...product, isInCartList: false };
+//   });
+// };
 
 // const updateCartPageProductWithPrice = (cartList) => {
 //   return cartList.map((product) => {
@@ -185,23 +218,25 @@ const addWishlistItemStatus = (wishList) => {
 //   });
 // };
 
-const updatePrice = (productList, cartList, productId, updateType) => {
-  return updateType === "INCREMENT"
-    ? parseFloat(
-        cartList.filter((product) => product._id === productId)[0].price
-      ) +
-        parseFloat(
-          productList.filter((product) => product._id === productId)[0].price
-        )
-    : (
-        parseFloat(
-          cartList.filter((product) => product._id === productId)[0].price
-        ) -
-        parseFloat(
-          productList.filter((product) => product._id === productId)[0].price
-        )
-      ).toFixed(2);
-};
+// const updatePrice = (productList, cartList, productId, updateType) => {
+//   return updateType === "INCREMENT"
+//     ? parseFloat(
+//         cartList.find(({ _id: { _id } }) => _id === productId)._id.price
+//       ) +
+//         parseFloat(
+//           productList.find((product) => product._id === productId).price
+//         )
+//     : parseFloat(
+//         (
+//           parseFloat(
+//             cartList.find(({ _id: { _id } }) => _id === productId)._id.price
+//           ) -
+//           parseFloat(
+//             productList.find((product) => product._id === productId).price
+//           )
+//         ).toFixed(2)
+//       );
+// };
 
 // const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
 //   const { productId } = productToBeAdded;
@@ -210,8 +245,6 @@ const updatePrice = (productList, cartList, productId, updateType) => {
 //     ...cartList,
 //     { ...productToBeAdded, quantity: 1, isInCartList: true },
 //   ];
-
-//   console.log("HELLO_DING_DONG", { newCartList });
 
 //   if (newCartList.length > 0) {
 //     newCartList = cartList.map((product) => {
@@ -229,18 +262,15 @@ const updatePrice = (productList, cartList, productId, updateType) => {
 //     });
 //   }
 
-//   console.log("new_CART_LIST", newCartList);
 //   return newCartList;
 // };
 
 // if (cartList.length === 0) {
 //   newCartList.push({ ...productToBeAdded, quantity: 1, isInCartList: true });
 
-//   console.log("ie_IFnsid", { newCartList });
 // } else {
 //   cartList.forEach((product) => {
 //     if (productId === product["productId"]) {
-//       console.log("inside_IF", { product }, { newCartList });
 
 //       newCartList.push({
 //         ...product,
@@ -248,7 +278,6 @@ const updatePrice = (productList, cartList, productId, updateType) => {
 //         isInCartList: true
 //       });
 //     } else {
-//       console.log("inside_ELSE", { product }, { newCartList });
 
 //       newCartList.push({
 //         ...productToBeAdded,
@@ -259,5 +288,4 @@ const updatePrice = (productList, cartList, productId, updateType) => {
 //   });
 // }
 
-// console.log("NEW_CART_LIST", { newCartList });
 // return newCartList;

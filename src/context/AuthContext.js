@@ -15,16 +15,20 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const savedToken = JSON.parse(localStorage.getItem("token")) || null;
+  const savedUserId = JSON.parse(localStorage.getItem("userId") || null);
 
   const [isLogin, setLogin] = useState(false);
   const [error, setError] = useState("");
   const [token, setToken] = useState(savedToken);
+  const [userId, setUserId] = useState(savedUserId);
   const [showLoader, setShowLoader] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setUserId("");
     setToken("");
     navigate("/login");
   };
@@ -42,10 +46,13 @@ export const AuthProvider = ({ children }) => {
       const { data } = await axios.post(LOGIN_API, { username, password });
 
       if (data.success) {
+        console.log({ data });
         setShowLoader(false);
         localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("userId", JSON.stringify(data.user._id));
         setToken(data.token);
-        navigate("/products");
+        setUserId(data.user._id);
+        navigate("/");
         setUsername("");
         setPassword("");
       }
@@ -107,7 +114,10 @@ export const AuthProvider = ({ children }) => {
       if (data.success) {
         setShowLoader(false);
         localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("userId", JSON.stringify(data.user._id));
         setToken(data.token);
+        setUserId(data.user._id);
+        navigate("/");
         setUsername("");
         setEmail("");
         setPassword("");
@@ -134,6 +144,7 @@ export const AuthProvider = ({ children }) => {
         setToken,
         showLoader,
         setShowLoader,
+        userId,
       }}
     >
       {children}

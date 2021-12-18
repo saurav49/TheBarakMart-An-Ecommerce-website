@@ -22,7 +22,16 @@ function Navbar() {
           <h1 className={styles.brandName}> Barak Shop </h1>
         </div>
         <div className={styles.cartWishContainer}>
-          {token && <LogOutButton />}
+          {token ? (
+            <LogOutButton />
+          ) : (
+            <button
+              className="btn btn-dark mx-1"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          )}
           <WishlistButton />
           <CartButton />
         </div>

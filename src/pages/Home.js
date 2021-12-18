@@ -6,12 +6,15 @@ import { useDataContext } from "../hook/index";
 import { ProductCard } from "../components";
 import { useNavigate } from "react-router";
 import uniqid from "uniqid";
+import { Initialize } from "../utils";
 
 const Home = () => {
   const {
     state: { productList },
   } = useDataContext();
   const navigate = useNavigate();
+
+  Initialize();
 
   const categories = [
     {
@@ -61,14 +64,8 @@ const Home = () => {
     <div className={styles.homeWrapper}>
       <div className={styles.heroWrapper}>
         <div className={styles.heroText}>
-          <h1>
-            Discover the best finance content through timeless books by top
-            authors
-          </h1>
-          <p>
-            Thoughtfully curated collection to help you get started with your
-            personal finance journey.
-          </p>
+          <h1>Grab your favorite merchandise</h1>
+          <p>Thoughtfully curated collection made with finest materials</p>
           <button
             className={styles.heroBtn}
             onClick={() => navigateToProductsPage()}

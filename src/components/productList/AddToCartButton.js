@@ -1,10 +1,10 @@
 import React from "react";
 import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
-import { useDataContext } from "../../hook/index";
+import { useDataContext, useAuthContext } from "../../hook/index";
 import { Toast } from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
-import { CART_API, WISHLIST_API } from "../../urls";
+import { CART_API, WISHLIST_API, ADD_PRODUCT_TO_CART } from "../../urls";
 
 const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
   const {
@@ -15,18 +15,23 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
     removeProductFromWishlist,
   } = useDataContext();
 
+  const { userId } = useAuthContext();
+
   // To check whether item is in cartList
   const checkIsInCartList = (cartList, productId) => {
-    return cartList.find((product) => product._id === productId) !== undefined;
+    if (cartList.hasOwnProperty("userId")) {
+      return (
+        cartList.cartItems.find((product) => product._id === productId) !==
+        undefined
+      );
+    }
   };
 
   const navigate = useNavigate();
 
   if (type === "wishList" && checkIsInCartList(state.cartList, productId)) {
-    console.log({ type }, checkIsInCartList(state.cartList, productId));
-
     removeProductFromWishlist({
-      url: WISHLIST_API,
+      url: `${WISHLIST_API}/${userId}`,
       productId: productId,
       toastMsg: `${name} product added to cart`,
       toastType: "success",
@@ -35,7 +40,7 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
 
   const handleAddToCart = () => {
     isInCartList
-      ? navigate("/cart")
+      ? navigate("/cart", { state: `${productId}` })
       : checkIsInCartList(state.cartList, productId)
       ? updateCartQuantity({
           url: `${CART_API}`,
@@ -47,7 +52,7 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
           toastType: "info",
         })
       : addProductToCart({
-          url: `${CART_API}`,
+          url: `${ADD_PRODUCT_TO_CART}/${userId}`,
           productId: productId,
           toastMsg: `${name} HAS BEEN ADDED TO CART`,
           toastType: "success",
