@@ -5,7 +5,7 @@ Live Link: https://barakmart.netlify.app
 
 ## Tech Stack
 
-**Front End:** ReactJS,My Componenet Library(BARAK UI), CSS3
+**Front End:** ReactJS,custom css component Library(BARAK UI), CSS3
 
 **Server:** NodeJS, ExpressJS
 
