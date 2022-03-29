@@ -21,7 +21,8 @@ const FinalCheckout = () => {
 
   useEffect(() => {
     getAllAddresses(userId);
-  }, [getAllAddresses, userId]);
+    // eslint-disable-next-line
+  }, [userId]);
 
   useEffect(() => {
     if (typeof addresses !== undefined) {
