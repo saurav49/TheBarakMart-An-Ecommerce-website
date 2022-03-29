@@ -47,10 +47,8 @@ export const UserProvider = ({ children }) => {
   });
 
   const getAllAddresses = async (userId) => {
-    console.log({ userId });
     try {
       const response = await axios.get(`${ADDRESS_API}/${userId}`);
-      console.log({ response });
       response.data.success &&
         dispatch({ type: "STORE_ADDRESS", payload: response.data.allAddress });
     } catch (error) {

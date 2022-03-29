@@ -20,7 +20,6 @@ const useBill = () => {
   setTotalMrp(calculateBill());
   setTotalAmount((amount) => amount + totalMrp + 150);
 
-  console.log("usEBIllllLLL", state.price.TotalAmount, state.price.TotalMrp);
   // }, [state.cartList]);
 
   return { totalMrp };

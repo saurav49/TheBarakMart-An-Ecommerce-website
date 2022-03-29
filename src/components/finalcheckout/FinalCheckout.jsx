@@ -44,7 +44,6 @@ const FinalCheckout = () => {
     }
   };
 
-  console.log(reqdAddress);
   return (
     <div className={styles.final__checkout__wrapper}>
       <h1>Review Your Order</h1>

@@ -17,8 +17,6 @@ const CartButton = () => {
     navigate("/cart");
   };
 
-  // console.log(cartList);
-
   return (
     <div>
       <button onClick={handleCartDisplay} className={styles.cartBadgeBtn}>
