@@ -4,9 +4,11 @@ import styles from "./Address.module.css";
 import { IoMdAddCircleOutline, RiDeleteBin3Fill } from "../../icons/icon";
 import { reducer } from "./reducer";
 import { useUserContext, useAuthContext } from "../../hook/index";
+import { useNavigate } from "react-router-dom";
 
 const Address = () => {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
   const {
     state: { addresses },
     getAllAddresses,
@@ -93,7 +95,9 @@ const Address = () => {
                     </div>
                     <button
                       className={styles.btn__address}
-                      onClick={() => setShowModal(true)}
+                      onClick={() =>
+                        navigate("/finalcheckout", { state: address._id })
+                      }
                     >
                       Deliver to this address
                     </button>

@@ -4,7 +4,7 @@ import { ADDRESS_API, EDIT_ADDRESS } from "../urls";
 
 export const UserContext = createContext();
 
-const userFunction = (state, action) => {
+export const userFunction = (state, action) => {
   switch (action.type) {
     case "STORE_ADDRESS":
       return { ...state, addresses: [...action.payload] };
@@ -29,6 +29,11 @@ const userFunction = (state, action) => {
             : { ...address }
         ),
       };
+    case "ADD_DELIVER_ADDRESS":
+      return {
+        ...state,
+        currentDeliverAddress: action.payload,
+      };
 
     default:
       console.log("SOMETHING WENT WRONG PLEASE CHECK USEUSERCONTEXT");
@@ -38,6 +43,7 @@ const userFunction = (state, action) => {
 export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(userFunction, {
     addresses: [],
+    currentDeliverAddress: {},
   });
 
   const getAllAddresses = async (userId) => {
