@@ -21,13 +21,14 @@ const FinalCheckout = () => {
 
   useEffect(() => {
     getAllAddresses(userId);
-  }, [userId]);
+  }, [getAllAddresses, userId]);
 
   useEffect(() => {
     if (typeof addresses !== undefined) {
       addresses.length > 0 &&
         setReqdAddress(addresses.find((address) => address._id === state));
     }
+    // eslint-disable-next-line
   }, [state]);
 
   const handleTotalPrice = () => {
