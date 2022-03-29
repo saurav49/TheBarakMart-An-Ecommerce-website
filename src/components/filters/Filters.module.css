@@ -59,3 +59,13 @@ button {
 .spanStyle {
   padding: 0em 0.2em;
 }
+
+.checkbox__label__wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.label__wrapper {
+  margin-right: 1em;
+}

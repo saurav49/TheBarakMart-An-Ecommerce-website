@@ -8,7 +8,6 @@ import {
   validateUsername,
   isMatch,
 } from "../utils";
-
 import { SIGNUP_API, LOGIN_API } from "../urls";
 
 export const AuthContext = createContext();
@@ -46,16 +45,18 @@ export const AuthProvider = ({ children }) => {
       const { data } = await axios.post(LOGIN_API, { username, password });
 
       if (data.success) {
-        console.log({ data });
         setShowLoader(false);
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("userId", JSON.stringify(data.user._id));
         setToken(data.token);
         setUserId(data.user._id);
-        navigate("/");
         setUsername("");
         setPassword("");
       }
+      if (!data.success) {
+        navigate("/login");
+      }
+      navigate("/");
     } catch (error) {
       console.log("handleLogin", error);
     } finally {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ProductCard, SearchBar, Toast } from "../index";
+import { ProductCard, SearchBar } from "../index";
 import { useDataContext } from "../../hook/index";
 import styles from "./ProductList.module.css";
 import { updateProductsWithWishListAndCartStatus } from "../../context/reducerFunc";
@@ -25,7 +25,9 @@ const ProductList = () => {
   const getFilteredData = (
     productList,
     isIncludeFastDelivery,
-    isIncludeOutOfStock
+    isIncludeOutOfStock,
+    brand,
+    category
   ) => {
     if (isIncludeFastDelivery) {
       productList = productList.filter((item) => item.fastDelivery);
@@ -33,6 +35,18 @@ const ProductList = () => {
 
     if (!isIncludeOutOfStock) {
       productList = productList.filter((item) => item.inStock);
+    }
+
+    if (brand.length > 0) {
+      productList = productList.filter((item) =>
+        brand.includes(item.brandName)
+      );
+    }
+
+    if (category.length > 0) {
+      productList = productList.filter((item) =>
+        category.includes(item.category)
+      );
     }
 
     return productList;
@@ -46,14 +60,14 @@ const ProductList = () => {
   let filteredData = getFilteredData(
     sortedData,
     state.filterStates.includeFastDelivery,
-    state.filterStates.includeOutOfStock
+    state.filterStates.includeOutOfStock,
+    state.filterStates.brand,
+    state.filterStates.category
   );
 
   // Search Product function
-
-  const updateInput = async (input) => {
+  const updateInput = (input, delay) => {
     setInput(input);
-
     const filtered = filteredData.filter((product) => {
       return product.name.toLowerCase().includes(input.toLowerCase());
     });
@@ -66,7 +80,9 @@ const ProductList = () => {
     : (filteredData = getFilteredData(
         sortedData,
         state.filterStates.includeFastDelivery,
-        state.filterStates.includeOutOfStock
+        state.filterStates.includeOutOfStock,
+        state.filterStates.brand,
+        state.filterStates.category
       ));
 
   useEffect(() => {
@@ -77,13 +93,16 @@ const ProductList = () => {
         state.cartList
       )
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [
     state.cartList,
     state.wishList,
     state.filterStates.sortBy,
     state.filterStates.includeFastDelivery,
     state.filterStates.includeOutOfStock,
+    state.filterStates.brand.length,
+    state.filterStates.category.length,
+    input,
   ]);
 
   return (
@@ -97,7 +116,8 @@ const ProductList = () => {
           <SearchBar input={input} onChange={updateInput} />
           <h1 style={{ marginLeft: "1em" }}> All Products </h1>
           <div className={styles.productList}>
-            {finalData.length > 0 &&
+            {finalData &&
+              finalData.length > 0 &&
               finalData.map(
                 (
                   {
@@ -135,9 +155,6 @@ const ProductList = () => {
               )}
           </div>
         </>
-      )}
-      {isLoading && (
-        <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
       )}
     </div>
   );

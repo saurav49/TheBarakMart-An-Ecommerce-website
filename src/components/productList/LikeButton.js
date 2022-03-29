@@ -2,12 +2,10 @@ import React from "react";
 import { FaRegHeart, FaHeart } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext, useAuthContext } from "../../hook/index";
-import { Toast } from "../index";
 import { WISHLIST_API, ADD_PRODUCT_TO_WISHLIST } from "../../urls";
 
 const LikeButton = ({ name, productId, styleType, isInWishList }) => {
-  const { state, addProductToWishlist, removeProductFromWishlist, isLoading } =
-    useDataContext();
+  const { addProductToWishlist, removeProductFromWishlist } = useDataContext();
 
   const { userId } = useAuthContext();
 
@@ -22,14 +20,10 @@ const LikeButton = ({ name, productId, styleType, isInWishList }) => {
       ? removeProductFromWishlist({
           url: `${WISHLIST_API}/${userId}`,
           productId: productId,
-          toastMsg: `${name} has been removed from wishlist`,
-          toastType: "error",
         })
       : addProductToWishlist({
           url: `${ADD_PRODUCT_TO_WISHLIST}/${userId}`,
           productId: productId,
-          toastMsg: `${name} has been added to wishlist`,
-          toastType: "success",
         });
   };
 
@@ -44,9 +38,6 @@ const LikeButton = ({ name, productId, styleType, isInWishList }) => {
           )}
         </button>
       </div>
-      {isLoading && (
-        <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
-      )}
     </React.Fragment>
   );
 };

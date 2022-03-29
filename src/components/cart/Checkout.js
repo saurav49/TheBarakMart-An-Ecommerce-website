@@ -88,9 +88,12 @@ const Checkout = () => {
           </div>
         </div>
         {calculateBill() > 0 && (
-          <button className={styles.btn} style={{ width: "45%" }}>
+          <button
+            className={styles.btn}
+            style={{ width: "45%" }}
+            onClick={() => navigate("/address")}
+          >
             <span> PLACE ORDER </span>
-
             <FaArrowRight className={styles.arrowIcon} />
           </button>
         )}

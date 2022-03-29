@@ -12,8 +12,9 @@ import {
   RiLogoutBoxRFill,
   RiDeleteBin5Fill,
   RiLoginCircleFill,
+  RiDeleteBin3Fill,
 } from "react-icons/ri";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiEdit2 } from "react-icons/fi";
 import { BiCartAlt } from "react-icons/bi";
 import { BsFilter } from "react-icons/bs";
 import {
@@ -21,7 +22,8 @@ import {
   AiFillEyeInvisible,
   AiOutlineArrowRight,
 } from "react-icons/ai";
-import { IoMdArrowRoundBack } from "react-icons/io";
+import { IoMdArrowRoundBack, IoMdAddCircleOutline } from "react-icons/io";
+import { GrDeliver } from "react-icons/gr";
 
 export {
   FaShoppingBag,
@@ -43,4 +45,8 @@ export {
   IoMdArrowRoundBack,
   AiOutlineArrowRight,
   ImArrowRight,
+  IoMdAddCircleOutline,
+  RiDeleteBin3Fill,
+  FiEdit2,
+  GrDeliver,
 };

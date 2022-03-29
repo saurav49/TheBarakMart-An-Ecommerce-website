@@ -2,7 +2,6 @@ import React from "react";
 import { FaArrowRight, FaShoppingBag } from "../../icons/icon";
 import styles from "./ProductCard.module.css";
 import { useDataContext, useAuthContext } from "../../hook/index";
-import { Toast } from "../toast/Toast";
 import { useNavigate } from "react-router-dom";
 import { CART_API, WISHLIST_API, ADD_PRODUCT_TO_CART } from "../../urls";
 
@@ -11,7 +10,6 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
     state,
     addProductToCart,
     updateCartQuantity,
-    isLoading,
     removeProductFromWishlist,
   } = useDataContext();
 
@@ -33,8 +31,6 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
     removeProductFromWishlist({
       url: `${WISHLIST_API}/${userId}`,
       productId: productId,
-      toastMsg: `${name} product added to cart`,
-      toastType: "success",
     });
   }
 
@@ -48,14 +44,10 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productId,
           updateType: "INCREMENT",
-          toastMsg: `${name} HAS BEEN UPDATED`,
-          toastType: "info",
         })
       : addProductToCart({
           url: `${ADD_PRODUCT_TO_CART}/${userId}`,
           productId: productId,
-          toastMsg: `${name} HAS BEEN ADDED TO CART`,
-          toastType: "success",
         });
   };
 
@@ -76,9 +68,6 @@ const AddToCartButton = ({ name, productId, inStock, isInCartList, type }) => {
           )}
         </button>
       ) : null}
-      {isLoading && (
-        <Toast message={state.toast.toastMsg} type={state.toast.toastType} />
-      )}
     </React.Fragment>
   );
 };

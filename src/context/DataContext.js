@@ -13,16 +13,16 @@ export const DataProvider = ({ children }) => {
     productList: [],
     wishList: {},
     cartList: {},
+    productCategory: [],
+    productBrand: [],
     filterStates: {
       sortBy: null,
       includeOutOfStock: true,
       includeFastDelivery: false,
+      brand: [],
+      category: [],
     },
 
-    toast: {
-      toastMsg: "",
-      toastType: "",
-    },
     displayComponent: "PRODUCT",
   });
 
@@ -32,6 +32,10 @@ export const DataProvider = ({ children }) => {
       if (data.success) {
         dispatch({ type: dispatchType, payload: data[listType] });
       }
+      if (listType === "products") {
+        dispatch({ type: "FILTER_ALL_BRANDS", payload: data["products"] });
+        dispatch({ type: "FILTER_ALL_CATEGORY", payload: data["products"] });
+      }
     } catch (error) {
       console.log("fetchProductAndAdd", { error });
     }
@@ -40,11 +44,6 @@ export const DataProvider = ({ children }) => {
   const initiaizeWishlist = async ({ url, userId }) => {
     try {
       setLoading(true);
-      if (!userId) {
-        state.toast.toastMsg = "UserId not present";
-        state.toast.toastType = "error";
-        return;
-      }
 
       const { data } = await axios.post(url, { userId: `${userId}` });
 
@@ -67,8 +66,6 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     } catch (error) {
       console.log({ error });
-      state.toast.toastMsg = "error in initiaizeWishlist";
-      state.toast.toastType = "error";
       setLoading(false);
     }
   };
@@ -76,11 +73,6 @@ export const DataProvider = ({ children }) => {
   const initializeCartList = async ({ url, userId }) => {
     try {
       setLoading(true);
-      if (!userId) {
-        state.toast.toastMsg = "UserId not present";
-        state.toast.toastType = "error";
-        return;
-      }
       const { data } = await axios.post(url, { userId: `${userId}` });
 
       if (data.success) {
@@ -93,8 +85,6 @@ export const DataProvider = ({ children }) => {
       setLoading(false);
     } catch (error) {
       console.log({ error });
-      state.toast.toastMsg = "error in initializeCartList";
-      state.toast.toastType = "error";
       setLoading(false);
     }
   };
@@ -104,16 +94,10 @@ export const DataProvider = ({ children }) => {
     dispatchType,
     productId,
     updateType,
-    toastMsg,
-    toastType,
   }) => {
     let currentQuantity = state.cartList.cartItems.find(
       ({ _id: { _id } }) => _id === productId
     ).quantity;
-
-    // Updating Toast
-    state.toast.toastMsg = toastMsg;
-    state.toast.toastType = toastType;
 
     setLoading(true);
 
@@ -147,17 +131,11 @@ export const DataProvider = ({ children }) => {
     dispatchType,
     productId,
     updateType,
-    toastMsg,
-    toastType,
   }) => {
     try {
       const { _id, ...itemNoId } = state.productList.filter(
         (product) => product._id === productId
       )[0];
-
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
 
       setLoading(true);
 
@@ -186,17 +164,11 @@ export const DataProvider = ({ children }) => {
     dispatchType,
     productId,
     updateType,
-    toastMsg,
-    toastType,
   }) => {
     try {
       const idToDelete = state[listType].filter(
         (item) => item._id === productId
       )[0]._id;
-
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
 
       setLoading(true);
 
@@ -217,17 +189,13 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const addProductToCart = async ({ url, productId, toastMsg, toastType }) => {
+  const addProductToCart = async ({ url, productId }) => {
     try {
       setLoading(true);
 
       const response = await axios.post(`${url}`, {
         product: { _id: productId, quantity: 1 },
       });
-
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
 
       if (response.data.success) {
         dispatch({
@@ -244,20 +212,11 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const removeProductFromCart = async ({
-    url,
-    productId,
-    toastMsg,
-    toastType,
-  }) => {
+  const removeProductFromCart = async ({ url, productId }) => {
     try {
       const response = await axios.delete(`${url}`, {
         data: { productId: `${productId}` },
       });
-
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
 
       setLoading(true);
 
@@ -275,17 +234,8 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const addProductToWishlist = async ({
-    url,
-    productId,
-    toastMsg,
-    toastType,
-  }) => {
+  const addProductToWishlist = async ({ url, productId }) => {
     try {
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
-
       setLoading(true);
 
       const response = await axios.post(url, {
@@ -307,22 +257,13 @@ export const DataProvider = ({ children }) => {
     }
   };
 
-  const removeProductFromWishlist = async ({
-    url,
-    productId,
-    toastMsg,
-    toastType,
-  }) => {
+  const removeProductFromWishlist = async ({ url, productId }) => {
     try {
       const response = await axios.delete(`${url}`, {
         data: {
           productId: `${productId}`,
         },
       });
-
-      // Updating Toast
-      state.toast.toastMsg = toastMsg;
-      state.toast.toastType = toastType;
 
       setLoading(true);
 

@@ -16,7 +16,7 @@ import Loader from "react-loader-spinner";
 
 const Login = () => {
   const defaultUser = {
-    username: "user1",
+    username: "user3",
     password: "Users49!",
   };
 

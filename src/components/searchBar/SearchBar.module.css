@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Open + Sans);
-
 .search {
   width: 100%;
   position: relative;
@@ -15,8 +13,9 @@
   border: 3px solid rgb(116, 116, 116);
   border-radius: 0.5em;
   outline: none;
-  color: #eee;
+  color: #333;
   padding: 1em;
+  font-weight: bold;
 }
 
 .searchTermHide {

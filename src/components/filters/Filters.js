@@ -11,6 +11,22 @@ const Filters = () => {
     dispatch({ type: "CLEAR_FILTERS" });
   };
 
+  const handleBrandFilter = (filterBrandArr, brandName) => {
+    if (filterBrandArr.includes(brandName)) {
+      dispatch({ type: "REMOVE_BRAND_FROM_FILTER", payload: brandName });
+    } else {
+      dispatch({ type: "ADD_BRAND_TO_FILTER", payload: brandName });
+    }
+  };
+
+  const handleCategoryFilter = (filterCategoryArr, category) => {
+    if (filterCategoryArr.includes(category)) {
+      dispatch({ type: "REMOVE_CATEGORY_FROM_CATEGORY", payload: category });
+    } else {
+      dispatch({ type: "ADD_CATEGORY_TO_CATEGORY", payload: category });
+    }
+  };
+
   return (
     <React.Fragment>
       <div className={styles.filterContainer}>
@@ -63,7 +79,7 @@ const Filters = () => {
         </fieldset>
         <fieldset className={showFilters ? styles.dBlock : styles.dNone}>
           <legend> Filters </legend>
-          <label>
+          <label className={styles.label__wrapper}>
             <input
               type="checkbox"
               checked={state.filterStates.includeOutOfStock}
@@ -72,7 +88,7 @@ const Filters = () => {
             <span className={styles.spanStyle}> Include Out Of Stock </span>
           </label>
 
-          <label>
+          <label className={styles.label__wrapper}>
             <input
               type="checkbox"
               checked={state.filterStates.includeFastDelivery}
@@ -80,6 +96,53 @@ const Filters = () => {
             />
             <span className={styles.spanStyle}> Fast Delivery </span>
           </label>
+        </fieldset>
+
+        <fieldset className={showFilters ? styles.dBlock : styles.dNone}>
+          <legend> Brands </legend>
+          <div className={styles.checkbox__label__wrapper}>
+            {state.productBrand.length > 0 &&
+              state.productBrand.map((brandName, index) => {
+                return (
+                  <label key={index} className={styles.label__wrapper}>
+                    <input
+                      type="checkbox"
+                      value={brandName}
+                      checked={state.filterStates.brand.includes(brandName)}
+                      onChange={() =>
+                        handleBrandFilter(state.filterStates.brand, brandName)
+                      }
+                    />
+                    <span className={styles.spanStyle}> {brandName} </span>
+                  </label>
+                );
+              })}
+          </div>
+        </fieldset>
+
+        <fieldset className={showFilters ? styles.dBlock : styles.dNone}>
+          <legend> Category </legend>
+          <div className={styles.checkbox__label__wrapper}>
+            {state.productCategory.length > 0 &&
+              state.productCategory.map((category, index) => {
+                return (
+                  <label key={index} className={styles.label__wrapper}>
+                    <input
+                      type="checkbox"
+                      value={category}
+                      checked={state.filterStates.category.includes(category)}
+                      onChange={() =>
+                        handleCategoryFilter(
+                          state.filterStates.category,
+                          category
+                        )
+                      }
+                    />
+                    <span className={styles.spanStyle}> {category} </span>
+                  </label>
+                );
+              })}
+          </div>
         </fieldset>
       </div>
     </React.Fragment>

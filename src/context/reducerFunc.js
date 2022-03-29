@@ -1,5 +1,51 @@
 export const reducerFunc = (state, action) => {
   switch (action.type) {
+    case "ADD_BRAND_TO_FILTER":
+      return {
+        ...state,
+        filterStates: {
+          ...state.filterStates,
+          brand: [...state.filterStates.brand, action.payload],
+        },
+      };
+    case "REMOVE_BRAND_FROM_FILTER":
+      return {
+        ...state,
+        filterStates: {
+          ...state.filterStates,
+          brand: state.filterStates.brand.filter(
+            (brandName) => brandName !== action.payload
+          ),
+        },
+      };
+    case "ADD_CATEGORY_TO_CATEGORY":
+      return {
+        ...state,
+        filterStates: {
+          ...state.filterStates,
+          category: [...state.filterStates.category, action.payload],
+        },
+      };
+    case "REMOVE_CATEGORY_FROM_CATEGORY":
+      return {
+        ...state,
+        filterStates: {
+          ...state.filterStates,
+          category: state.filterStates.category.filter(
+            (categoryName) => categoryName !== action.payload
+          ),
+        },
+      };
+    case "FILTER_ALL_BRANDS":
+      return {
+        ...state,
+        productBrand: addProductBrand(action.payload),
+      };
+    case "FILTER_ALL_CATEGORY":
+      return {
+        ...state,
+        productCategory: addProductCategory(action.payload),
+      };
     case "ADD_TO_CART":
       return {
         ...state,
@@ -137,6 +183,8 @@ export const reducerFunc = (state, action) => {
           sortBy: null,
           includeFastDelivery: false,
           includeOutOfStock: false,
+          brand: [],
+          category: [],
         },
       };
 
@@ -160,7 +208,7 @@ export const updateProductsWithWishListAndCartStatus = (
   wishList,
   cartList
 ) => {
-  if (wishList) {
+  if (wishList && productList) {
     productList = productList.map((product) => {
       if (handleCheckingStatus(wishList.wishListItems, product)) {
         return { ...product, isInWishList: true };
@@ -170,7 +218,7 @@ export const updateProductsWithWishListAndCartStatus = (
     });
   }
 
-  if (cartList) {
+  if (cartList && productList) {
     productList = productList.map((product) => {
       if (handleCheckingStatus(cartList.cartItems, product)) {
         return { ...product, isInCartList: true };
@@ -203,89 +251,24 @@ export const updateWishListProductWithCartStatus = (wishList, cartList) => {
   return list;
 };
 
-// const addWishlistItemStatus = (wishList) => {
-//   return wishList.map((product) => {
-//     return { ...product, isInCartList: false };
-//   });
-// };
+const addProductBrand = (productList) => {
+  let brands = [];
 
-// const updateCartPageProductWithPrice = (cartList) => {
-//   return cartList.map((product) => {
-//     return {
-//       ...product,
-//       price: product.price * product.quantity,
-//     };
-//   });
-// };
+  for (let product of productList) {
+    if (!brands.includes(product.brandName)) {
+      brands.push(product.brandName);
+    }
+  }
+  return brands;
+};
 
-// const updatePrice = (productList, cartList, productId, updateType) => {
-//   return updateType === "INCREMENT"
-//     ? parseFloat(
-//         cartList.find(({ _id: { _id } }) => _id === productId)._id.price
-//       ) +
-//         parseFloat(
-//           productList.find((product) => product._id === productId).price
-//         )
-//     : parseFloat(
-//         (
-//           parseFloat(
-//             cartList.find(({ _id: { _id } }) => _id === productId)._id.price
-//           ) -
-//           parseFloat(
-//             productList.find((product) => product._id === productId).price
-//           )
-//         ).toFixed(2)
-//       );
-// };
+const addProductCategory = (productList) => {
+  let category = [];
 
-// const removeDuplicateProductFromCart = (cartList, productToBeAdded) => {
-//   const { productId } = productToBeAdded;
-
-//   let newCartList = [
-//     ...cartList,
-//     { ...productToBeAdded, quantity: 1, isInCartList: true },
-//   ];
-
-//   if (newCartList.length > 0) {
-//     newCartList = cartList.map((product) => {
-//       if (productId === product["productId"]) {
-//         return {
-//           ...product,
-//           quantity: product["quantity"] + 1,
-//           isInCartList: true,
-//         };
-//       } else {
-//         return {
-//           ...product,
-//         };
-//       }
-//     });
-//   }
-
-//   return newCartList;
-// };
-
-// if (cartList.length === 0) {
-//   newCartList.push({ ...productToBeAdded, quantity: 1, isInCartList: true });
-
-// } else {
-//   cartList.forEach((product) => {
-//     if (productId === product["productId"]) {
-
-//       newCartList.push({
-//         ...product,
-//         qunatity: product["product"] + 1,
-//         isInCartList: true
-//       });
-//     } else {
-
-//       newCartList.push({
-//         ...productToBeAdded,
-//         quantity: 1,
-//         isInCartList: true
-//       });
-//     }
-//   });
-// }
-
-// return newCartList;
+  for (let product of productList) {
+    if (!category.includes(product.category)) {
+      category.push(product.category);
+    }
+  }
+  return category;
+};

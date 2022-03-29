@@ -9,7 +9,6 @@ const Initialize = () => {
   const { userId } = useAuthContext();
 
   useEffect(() => {
-    console.log("HELLO");
     initiaizeWishlist({
       url: `${WISHLIST_API}`,
       userId: userId,
@@ -25,7 +24,8 @@ const Initialize = () => {
       dispatchType: "ADD_TO_PRODUCT",
       listType: "products",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    // eslint-disable-next-line
   }, []);
 };
 

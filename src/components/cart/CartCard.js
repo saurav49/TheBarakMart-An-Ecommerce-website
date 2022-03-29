@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { FaPlus, FaMinus, RiDeleteBin5Fill } from "../../icons/icon";
 import styles from "./CartCard.module.css";
 import { useDataContext, useAuthContext } from "../../hook/index";
-import { Toast } from "../index";
 import { CART_API } from "../../urls";
 import { useLocation } from "react-router";
 
@@ -20,10 +19,9 @@ const CartCard = ({
   quantity,
 }) => {
   const {
-    state: { productList, cartList, toast },
+    state: { productList, cartList },
     updateCartQuantity,
     removeProductFromCart,
-    isLoading,
   } = useDataContext();
   const { state } = useLocation();
 
@@ -51,8 +49,6 @@ const CartCard = ({
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productID,
           updateType: "INCREMENT",
-          toastMsg: `${name} QUANTITY HAS BEEN INCREASED`,
-          toastType: "success",
         });
         break;
 
@@ -62,8 +58,6 @@ const CartCard = ({
           dispatchType: "UPDATE_PRODUCT_QUANTITY_IN_CART",
           productId: productID,
           updateType: "DECREMENT",
-          toastMsg: `${name} QUANTITY HAS BEEN DECREASED`,
-          toastType: "success",
         });
         break;
 
@@ -71,8 +65,6 @@ const CartCard = ({
         removeProductFromCart({
           url: `${CART_API}/${userId}`,
           productId: productID,
-          toastMsg: `${name} HAS BEEN REMOVED`,
-          toastType: "error",
         });
         break;
 
@@ -131,7 +123,6 @@ const CartCard = ({
           </button>
         </div>
       </div>
-      {isLoading && <Toast message={toast.toastMsg} type={toast.toastType} />}
     </div>
   );
 };

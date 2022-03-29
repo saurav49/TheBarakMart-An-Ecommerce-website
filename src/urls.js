@@ -13,6 +13,9 @@ const GET_ALL_CART_ITEMS = `${CART_API}/get-items`;
 const ADD_PRODUCT_TO_WISHLIST = `${WISHLIST_API}/add-item`;
 const ADD_PRODUCT_TO_CART = `${CART_API}/add-item`;
 
+const ADDRESS_API = `${USER_API}/address`;
+const EDIT_ADDRESS = `${USER_API}/editaddress`;
+
 export {
   BASE_PATH,
   PRODUCT_API,
@@ -25,4 +28,6 @@ export {
   ADD_PRODUCT_TO_WISHLIST,
   GET_ALL_CART_ITEMS,
   ADD_PRODUCT_TO_CART,
+  ADDRESS_API,
+  EDIT_ADDRESS,
 };

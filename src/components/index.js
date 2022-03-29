@@ -15,10 +15,11 @@ import { LikeButton } from "./productList/LikeButton";
 import { DetailedProductCard } from "./productList/DetailedProductCard";
 import { ProductList } from "./productList/ProductList";
 import { SearchBar } from "./searchBar/SearchBar";
-import { Toast } from "./toast/Toast";
 import { CategoryPage } from "./CategoryPage/CategoryPage";
 import { BackButton } from "./productList/BackButton";
 import { Footer } from "./Footer/Footer";
+import { Address } from "./Address/Address";
+import { FinalCheckout } from "./finalcheckout/FinalCheckout";
 
 export {
   Wishlist,
@@ -38,8 +39,9 @@ export {
   ProductList,
   DetailedProductCard,
   SearchBar,
-  Toast,
   CategoryPage,
   BackButton,
   Footer,
+  Address,
+  FinalCheckout,
 };
