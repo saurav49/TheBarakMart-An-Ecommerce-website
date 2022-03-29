@@ -19,7 +19,8 @@ const Address = () => {
 
   useEffect(() => {
     getAllAddresses(userId);
-  }, [getAllAddresses, userId]);
+    // eslint-disable-next-line
+  }, [userId]);
 
   return (
     <>
