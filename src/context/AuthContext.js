@@ -13,8 +13,8 @@ import { SIGNUP_API, LOGIN_API } from "../urls";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const savedToken = JSON.parse(localStorage.getItem("token")) || null;
-  const savedUserId = JSON.parse(localStorage.getItem("userId") || null);
+  const savedToken = localStorage?.getItem("token") || null;
+  const savedUserId = JSON.parse(localStorage?.getItem("userId")) || null;
 
   const [isLogin, setLogin] = useState(false);
   const [error, setError] = useState("");
@@ -45,18 +45,18 @@ export const AuthProvider = ({ children }) => {
       const { data } = await axios.post(LOGIN_API, { username, password });
 
       if (data.success) {
-        setShowLoader(false);
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("userId", JSON.stringify(data.user._id));
         setToken(data.token);
         setUserId(data.user._id);
         setUsername("");
         setPassword("");
+        setShowLoader(false);
+        navigate("/");
       }
       if (!data.success) {
         navigate("/login");
       }
-      navigate("/");
     } catch (error) {
       console.log("handleLogin", error);
     } finally {

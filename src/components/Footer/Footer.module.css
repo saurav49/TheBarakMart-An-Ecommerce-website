@@ -1,9 +1,9 @@
 .footerWrapper {
   clear: both;
   position: relative;
+  bottom: 0;
   /* height: 200px; */
   padding: 2em 0em;
-
   background-color: #ddd;
   display: flex;
   flex-direction: column;

@@ -248,8 +248,8 @@ export const DataProvider = ({ children }) => {
           productId: productId,
           payload: response.data.wishList,
         });
-        setLoading(false);
       }
+      setLoading(false);
     } catch (error) {
       console.log("addProductToDb", error);
     } finally {
@@ -259,21 +259,20 @@ export const DataProvider = ({ children }) => {
 
   const removeProductFromWishlist = async ({ url, productId }) => {
     try {
+      setLoading(true);
       const response = await axios.delete(`${url}`, {
         data: {
           productId: `${productId}`,
         },
       });
 
-      setLoading(true);
-
       if (response.data.success) {
         dispatch({
           type: "REMOVE_PRODUCT_FROM_WISHLIST",
           productId: productId,
         });
-        setLoading(false);
       }
+      setLoading(false);
     } catch (error) {
       console.log("removeProductFromDb", { error });
       setLoading(false);

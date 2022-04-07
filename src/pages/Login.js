@@ -91,7 +91,7 @@ const Login = () => {
             {showLoader ? (
               <Loader
                 type="ThreeDots"
-                color="#00BFFF"
+                color="#fff"
                 height={20}
                 width={70}
                 timeout={3000}
@@ -101,13 +101,6 @@ const Login = () => {
             )}
             {!showLoader && <RiLoginCircleFill className={styles.signupIcon} />}
           </button>
-          {/* <button
-            className={`btn btn-dark m-1`}
-            onClick={() => handleLoginUsingdefaultAccount()}
-            style={{ margin: "0.5em 0em", padding: "0.5em" }}
-          >
-            Login with default account
-          </button> */}
           <button
             className={styles.redirectBtn}
             onClick={() => navigate("/signup")}

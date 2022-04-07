@@ -11,7 +11,6 @@ import {
   DetailedProductCard,
   Wishlist,
   CategoryPage,
-  Footer,
   Address,
   FinalCheckout,
 } from "./components/index";
@@ -58,7 +57,7 @@ export default function App() {
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

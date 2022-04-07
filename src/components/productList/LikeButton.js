@@ -4,7 +4,7 @@ import styles from "./ProductCard.module.css";
 import { useDataContext, useAuthContext } from "../../hook/index";
 import { WISHLIST_API, ADD_PRODUCT_TO_WISHLIST } from "../../urls";
 
-const LikeButton = ({ name, productId, styleType, isInWishList }) => {
+const LikeButton = ({ productId, styleType, isInWishList }) => {
   const { addProductToWishlist, removeProductFromWishlist } = useDataContext();
 
   const { userId } = useAuthContext();

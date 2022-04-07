@@ -82,6 +82,17 @@ export const reducerFunc = (state, action) => {
       };
 
     case "REMOVE_PRODUCT_FROM_WISHLIST":
+      console.log(
+        state,
+        action,
+        state.wishList.wishListItems.map((_id) =>
+          console.log(
+            _id,
+            _id._id !== action.productId,
+            _id._id._id !== action.payload
+          )
+        )
+      );
       return {
         ...state,
         productList: state.productList.map((product) =>
@@ -101,13 +112,6 @@ export const reducerFunc = (state, action) => {
       return {
         ...state,
         cartList: { ...state.cartList, ...action.payload },
-        // cartList: {
-        //   ...state.cartList,
-        //   cartItems: [
-        //     ...state.cartList.cartItems,
-        //     { ...action.payload, isInCartList: true },
-        //   ],
-        // },
         productList: state.productList.map((product) =>
           product._id === action.productId
             ? { ...product, isInCartList: true }
