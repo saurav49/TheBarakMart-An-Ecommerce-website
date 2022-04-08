@@ -11,13 +11,13 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <DataProvider>
-        <UserProvider>
-          <AuthProvider>
+      <AuthProvider>
+        <DataProvider>
+          <UserProvider>
             <App />
-          </AuthProvider>
-        </UserProvider>
-      </DataProvider>
+          </UserProvider>
+        </DataProvider>
+      </AuthProvider>
     </Router>
   </React.StrictMode>,
   rootElement

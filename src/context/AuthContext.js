@@ -13,8 +13,9 @@ import { SIGNUP_API, LOGIN_API } from "../urls";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const savedToken = localStorage?.getItem("token") || null;
-  const savedUserId = JSON.parse(localStorage?.getItem("userId")) || null;
+  const savedToken = JSON.parse(localStorage?.getItem("barak__token")) || null;
+  const savedUserId =
+    JSON.parse(localStorage?.getItem("barak__userId")) || null;
 
   const [isLogin, setLogin] = useState(false);
   const [error, setError] = useState("");
@@ -25,8 +26,8 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   const handleLogOut = async () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    localStorage.removeItem("barak__token");
+    localStorage.removeItem("barak__userId");
     setUserId("");
     setToken("");
     navigate("/login");
@@ -45,8 +46,8 @@ export const AuthProvider = ({ children }) => {
       const { data } = await axios.post(LOGIN_API, { username, password });
 
       if (data.success) {
-        localStorage.setItem("token", JSON.stringify(data.token));
-        localStorage.setItem("userId", JSON.stringify(data.user._id));
+        localStorage.setItem("barak__token", JSON.stringify(data.token));
+        localStorage.setItem("barak__userId", JSON.stringify(data.user._id));
         setToken(data.token);
         setUserId(data.user._id);
         setUsername("");
@@ -114,8 +115,8 @@ export const AuthProvider = ({ children }) => {
 
       if (data.success) {
         setShowLoader(false);
-        localStorage.setItem("token", JSON.stringify(data.token));
-        localStorage.setItem("userId", JSON.stringify(data.user._id));
+        localStorage.setItem("barak__token", JSON.stringify(data.token));
+        localStorage.setItem("barak__userId", JSON.stringify(data.user._id));
         setToken(data.token);
         setUserId(data.user._id);
         navigate("/");

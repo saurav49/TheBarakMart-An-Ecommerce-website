@@ -82,17 +82,6 @@ export const reducerFunc = (state, action) => {
       };
 
     case "REMOVE_PRODUCT_FROM_WISHLIST":
-      console.log(
-        state,
-        action,
-        state.wishList.wishListItems.map((_id) =>
-          console.log(
-            _id,
-            _id._id !== action.productId,
-            _id._id._id !== action.payload
-          )
-        )
-      );
       return {
         ...state,
         productList: state.productList.map((product) =>

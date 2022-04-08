@@ -33,8 +33,6 @@ const DetailedProductCard = () => {
     );
   }
 
-  console.log({ requiredProducts }, { id }, { localProductList });
-
   return (
     <React.Fragment>
       <BackButton />

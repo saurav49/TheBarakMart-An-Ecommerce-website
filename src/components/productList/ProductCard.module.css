@@ -239,6 +239,34 @@
   transform: translate(-10px, 0px);
 }
 
+.showProductCardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 310px;
+  border: 1px solid #eee;
+  border-radius: 0.25em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  cursor: pointer;
+}
+
+.showProductImage {
+  width: 100%;
+}
+
+.showProductDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.showProductDesc > p {
+  text-align: center;
+  margin: 0.15em 0em;
+}
+
 @media screen and (max-width: 764px) {
   .detailProductCardWrapper {
     flex-direction: column;

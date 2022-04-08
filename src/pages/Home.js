@@ -3,7 +3,7 @@ import loginImage from "./undraw_web_shopping_re_owap.svg";
 import styles from "./Home.module.css";
 import { ImArrowRight } from "../icons/icon";
 import { useDataContext } from "../hook/index";
-import { ProductCard } from "../components";
+import { ShowProductCard } from "../components/index";
 import { useNavigate } from "react-router";
 import uniqid from "uniqid";
 import { Initialize } from "../utils";
@@ -98,30 +98,34 @@ const Home = () => {
       </div>
 
       <div className={styles.ofTheWeekWrapper}>
-        <h2>Top Selling Items of the Week</h2>
+        {topSellingItems && topSellingItems.length > 0 && (
+          <h2>Top Selling Items of the Week</h2>
+        )}
         <div className={styles.ofTheWeekWrapperCardWrapper}>
-          {topSellingItems.map(
-            (
-              { _id, name, desc, image, price, fastDelivery, inStock, offer },
-              index
-            ) => {
-              return (
-                <ProductCard
-                  key={_id}
-                  productId={_id}
-                  index={index}
-                  dismissBtn={false}
-                  name={name}
-                  desc={desc}
-                  image={image}
-                  price={price}
-                  fastDelivery={fastDelivery}
-                  inStock={inStock}
-                  offer={offer}
-                />
-              );
-            }
-          )}
+          {topSellingItems &&
+            topSellingItems.length > 0 &&
+            topSellingItems.map(
+              (
+                { _id, name, desc, image, price, fastDelivery, inStock, offer },
+                index
+              ) => {
+                return (
+                  <ShowProductCard
+                    key={_id}
+                    productId={_id}
+                    index={index}
+                    dismissBtn={false}
+                    name={name}
+                    desc={desc}
+                    image={image}
+                    price={price}
+                    fastDelivery={fastDelivery}
+                    inStock={inStock}
+                    offer={offer}
+                  />
+                );
+              }
+            )}
         </div>
       </div>
     </div>

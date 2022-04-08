@@ -3,11 +3,16 @@ import React, { createContext, useReducer, useState } from "react";
 import { reducerFunc } from "./reducerFunc";
 
 import { GET_ALL_WISHLIST_ITEMS } from "../urls";
+import { useAuthContext } from "../hook/index";
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [isLoading, setLoading] = useState(false);
+  let { token } = useAuthContext();
+  if (!token) {
+    token = JSON.parse(localStorage?.getItem("barak__token"));
+  }
 
   const [state, dispatch] = useReducer(reducerFunc, {
     productList: [],
@@ -28,6 +33,9 @@ export const DataProvider = ({ children }) => {
 
   const fetchProductAndAdd = async ({ url, dispatchType, listType }) => {
     try {
+      if (!token) {
+        return;
+      }
       const { data } = await axios.get(url);
       if (data.success) {
         dispatch({ type: dispatchType, payload: data[listType] });
@@ -43,6 +51,9 @@ export const DataProvider = ({ children }) => {
 
   const initiaizeWishlist = async ({ url, userId }) => {
     try {
+      if (!token) {
+        return;
+      }
       setLoading(true);
 
       const { data } = await axios.post(url, { userId: `${userId}` });
@@ -72,6 +83,9 @@ export const DataProvider = ({ children }) => {
 
   const initializeCartList = async ({ url, userId }) => {
     try {
+      if (!token) {
+        return;
+      }
       setLoading(true);
       const { data } = await axios.post(url, { userId: `${userId}` });
 

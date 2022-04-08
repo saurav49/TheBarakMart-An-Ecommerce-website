@@ -20,6 +20,7 @@ import { BackButton } from "./productList/BackButton";
 import { Footer } from "./Footer/Footer";
 import { Address } from "./Address/Address";
 import { FinalCheckout } from "./finalcheckout/FinalCheckout";
+import { ShowProductCard } from "./productList/ShowProductCard";
 
 export {
   Wishlist,
@@ -44,4 +45,5 @@ export {
   Footer,
   Address,
   FinalCheckout,
+  ShowProductCard,
 };

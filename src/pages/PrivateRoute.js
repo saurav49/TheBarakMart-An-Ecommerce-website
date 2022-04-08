@@ -23,7 +23,7 @@ import { useAuthContext } from "../hook/index";
 const PrivateRoute = ({ path }) => {
   let { token } = useAuthContext();
   if (typeof token === undefined) {
-    token = localStorage.getItem("token");
+    token = localStorage.getItem("barak__token");
   }
   if (token) {
     return <Outlet />;

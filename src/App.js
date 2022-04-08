@@ -14,11 +14,17 @@ import {
   Address,
   FinalCheckout,
 } from "./components/index";
-
+import { useAuthContext } from "./hook/index";
 import { Initialize } from "./utils";
+import axios from "axios";
 
 export default function App() {
   Initialize();
+
+  // TOKEN HANDLING
+  let { token } = useAuthContext();
+  !token && (token = JSON.parse(localStorage?.getItem("barak__token")));
+  token && (axios.defaults.headers.common["Authorization"] = token);
 
   return (
     <div className="App">
