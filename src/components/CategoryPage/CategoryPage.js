@@ -1,47 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useDataContext } from "../../hook";
 import { ProductCard } from "../index";
 import styles from "../productList/ProductList.module.css";
 import { BackButton } from "../index";
+import { updateProductsWithWishListAndCartStatus } from "../../context/reducerFunc";
+
 const CategoryPage = () => {
+  const [productsOfParticularCategory, setProductsOfParticularCategory] =
+    useState([]);
   const {
-    state: { productList },
+    state: { productList, wishList, cartList },
   } = useDataContext();
 
   const { catId } = useParams();
 
-  const productsOfParticularCategory = productList.filter(
-    (product) => product.category === catId && product.inStock
-  );
+  useEffect(() => {
+    setProductsOfParticularCategory(
+      updateProductsWithWishListAndCartStatus(
+        productList,
+        wishList,
+        cartList
+      ).filter((product) => product.category === catId && product.inStock)
+    );
+  }, [productList, wishList, cartList, catId]);
 
   return (
     <div className={styles.categoryPageWrapper}>
       <BackButton />
       <h2>{catId}</h2>
       <div className={styles.productList}>
-        {productsOfParticularCategory.map(
-          (
-            { _id, name, desc, image, price, fastDelivery, inStock, offer },
-            index
-          ) => {
-            return (
-              <ProductCard
-                key={_id}
-                productId={_id}
-                index={index}
-                dismissBtn={false}
-                name={name}
-                desc={desc}
-                image={image}
-                price={price}
-                fastDelivery={fastDelivery}
-                inStock={inStock}
-                offer={offer}
-              />
-            );
-          }
-        )}
+        {productsOfParticularCategory &&
+          productsOfParticularCategory.length > 0 &&
+          productsOfParticularCategory.map(
+            (
+              {
+                _id,
+                name,
+                desc,
+                image,
+                price,
+                fastDelivery,
+                inStock,
+                offer,
+                isInCartList,
+                isInWishList,
+              },
+              index
+            ) => {
+              return (
+                <ProductCard
+                  key={_id}
+                  productId={_id}
+                  index={index}
+                  dismissBtn={false}
+                  name={name}
+                  desc={desc}
+                  image={image}
+                  price={price}
+                  fastDelivery={fastDelivery}
+                  inStock={inStock}
+                  offer={offer}
+                  isInCartList={isInCartList}
+                  isInWishList={isInWishList}
+                />
+              );
+            }
+          )}
       </div>
     </div>
   );
