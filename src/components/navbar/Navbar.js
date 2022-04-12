@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Navbar.module.css";
-import { FaMountain } from "../../icons/icon";
+import { FaMountain, FaUserCircle } from "../../icons/icon";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../hook/index";
 
@@ -34,6 +34,12 @@ function Navbar() {
           )}
           <WishlistButton />
           <CartButton />
+          <div onClick={() => navigate("/user")}>
+            <button className={styles.userBtn}>
+              <FaUserCircle className={styles.userIcon} />
+              <p>Profile</p>
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -1,6 +1,14 @@
 import React from "react";
 import "./styles.css";
-import { Login, PrivateRoute, SignUp, Home, NotFoundPage } from "./pages/index";
+import {
+  Login,
+  PrivateRoute,
+  SignUp,
+  Home,
+  NotFoundPage,
+  User,
+  Orders,
+} from "./pages/index";
 import { Route, Routes } from "react-router";
 
 import {
@@ -60,6 +68,12 @@ export default function App() {
         </Route>
         <Route path="/finalcheckout" element={<PrivateRoute />}>
           <Route path="/finalcheckout" element={<FinalCheckout />} />
+        </Route>
+        <Route path="/user" element={<PrivateRoute />}>
+          <Route path="/user" element={<User />} />
+        </Route>
+        <Route path="/orders" element={<PrivateRoute />}>
+          <Route path="/orders" element={<Orders />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

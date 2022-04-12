@@ -13,11 +13,15 @@ const FinalCheckout = () => {
   const {
     state: { addresses },
     getAllAddresses,
+    saveOrder,
   } = useUserContext();
   const {
     state: { cartList },
   } = useDataContext();
-  const { userId } = useAuthContext();
+  let { userId } = useAuthContext();
+  if (!userId) {
+    userId = localStorage.getItem("barak__userId");
+  }
 
   useEffect(() => {
     getAllAddresses(userId);
@@ -28,7 +32,18 @@ const FinalCheckout = () => {
     if (typeof addresses !== undefined) {
       addresses.length > 0 &&
         setReqdAddress(addresses.find((address) => address._id === state));
+      addresses.length > 0 &&
+        localStorage.setItem(
+          "barak__deliver__address",
+          JSON.stringify(addresses.find((address) => address._id === state))
+        );
     }
+    if (typeof addresses !== undefined && addresses.length === 0) {
+      setReqdAddress(
+        JSON.parse(localStorage.getItem("barak__deliver__address"))
+      );
+    }
+
     // eslint-disable-next-line
   }, [state]);
 
@@ -42,6 +57,17 @@ const FinalCheckout = () => {
         return acc + currValue.quantity * currValue._id.price;
       }, 0);
     }
+  };
+
+  const handleCheckout = () => {
+    const items = cartList.cartItems.map((cart) => ({
+      _id: cart._id._id,
+      quantity: cart.quantity,
+    }));
+    const totalPrice = handleTotalPrice() + 49;
+    const address = reqdAddress;
+    console.log(items, totalPrice, address);
+    saveOrder(userId, { items, totalPrice, address });
   };
 
   return (
@@ -94,7 +120,12 @@ const FinalCheckout = () => {
           <span className={styles.text__bold}>Total Bill:</span>
           {handleTotalPrice() + 49}
         </p>
-        <button className={styles.checkout__btn}>Proceed to Checkout</button>
+        <button
+          className={styles.checkout__btn}
+          onClick={() => handleCheckout()}
+        >
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );

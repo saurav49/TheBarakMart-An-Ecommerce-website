@@ -6,6 +6,8 @@ const CART_API = `${BASE_PATH}/cart`;
 const USER_API = `${BASE_PATH}/user`;
 const SIGNUP_API = `${USER_API}/signup`;
 const LOGIN_API = `${USER_API}/login`;
+const ORDERS_API = `${BASE_PATH}/orders`;
+const GET_USER_INFO_API = `${USER_API}/getuserinfo`;
 
 const GET_ALL_WISHLIST_ITEMS = `${WISHLIST_API}/get-items`;
 const GET_ALL_CART_ITEMS = `${CART_API}/get-items`;
@@ -30,4 +32,6 @@ export {
   ADD_PRODUCT_TO_CART,
   ADDRESS_API,
   EDIT_ADDRESS,
+  GET_USER_INFO_API,
+  ORDERS_API,
 };

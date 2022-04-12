@@ -5,7 +5,7 @@ function reducer(state, action) {
         ...state,
         name: {
           ...state.name,
-          value: action.payload.replace(/[^a-zA-Z]/gi, ""),
+          value: action.payload,
         },
       };
     case "ADD_PHONE":
@@ -126,6 +126,38 @@ function reducer(state, action) {
       return {
         ...state,
         country: { ...state.country, errorText: "" },
+      };
+    case "POPULATE_ADDRESS":
+      return {
+        ...state,
+        name: {
+          ...state.name,
+          value: action.payload.name,
+        },
+        phone: {
+          ...state.phone,
+          value: action.payload.phone,
+        },
+        pincode: {
+          ...state.pincode,
+          value: action.payload.pincode,
+        },
+        city: {
+          ...state.city,
+          value: action.payload.city,
+        },
+        address: {
+          ...state.address,
+          value: action.payload.address,
+        },
+        state: {
+          ...state.state,
+          value: action.payload.state,
+        },
+        country: {
+          ...state.country,
+          value: action.payload.country,
+        },
       };
     default:
       console.log(

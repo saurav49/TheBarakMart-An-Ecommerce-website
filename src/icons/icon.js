@@ -6,6 +6,7 @@ import {
   FaHeart,
   FaPlus,
   FaMinus,
+  FaUserCircle,
 } from "react-icons/fa";
 import { ImCancelCircle, ImArrowRight } from "react-icons/im";
 import {
@@ -49,4 +50,5 @@ export {
   RiDeleteBin3Fill,
   FiEdit2,
   GrDeliver,
+  FaUserCircle,
 };

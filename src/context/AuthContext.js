@@ -52,8 +52,8 @@ export const AuthProvider = ({ children }) => {
         setUserId(data.user._id);
         setUsername("");
         setPassword("");
-        setShowLoader(false);
         navigate("/");
+        setShowLoader(false);
       }
       if (!data.success) {
         navigate("/login");

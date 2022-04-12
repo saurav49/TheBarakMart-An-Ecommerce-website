@@ -52,6 +52,25 @@
   color: #fff;
 }
 
+.userIcon {
+  font-size: 1.85rem;
+  color: #fff;
+  margin: 0.5em;
+}
+
+.userBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 0 1em;
+}
+
+.userBtn > p {
+  font-weight: bold;
+  font-size: 0.80rem;
+  color: #fff;
+}
+
 @media (max-width: 550px) {
   .navbar {
     flex-direction: column;

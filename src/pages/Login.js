@@ -27,6 +27,7 @@ const Login = () => {
   const { handleLogin, showLoader } = useAuthContext();
 
   const navigate = useNavigate();
+  console.log({ showLoader });
 
   return (
     <div className={styles.loginWrapper}>
@@ -89,13 +90,7 @@ const Login = () => {
             }
           >
             {showLoader ? (
-              <Loader
-                type="ThreeDots"
-                color="#fff"
-                height={20}
-                width={70}
-                timeout={3000}
-              />
+              <Loader type="ThreeDots" color="#fff" height={20} width={70} />
             ) : (
               <span>LOGIN</span>
             )}

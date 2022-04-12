@@ -1,19 +1,26 @@
 import React, { useState, useReducer, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./Address.module.css";
-import { IoMdAddCircleOutline, RiDeleteBin3Fill } from "../../icons/icon";
+import {
+  IoMdAddCircleOutline,
+  RiDeleteBin3Fill,
+  FiEdit2,
+} from "../../icons/icon";
 import { reducer } from "./reducer";
 import { useUserContext, useAuthContext } from "../../hook/index";
 import { useNavigate } from "react-router-dom";
+import Loader from "react-loader-spinner";
 
-const Address = () => {
+const Address = ({ isFromUser }) => {
   const [showModal, setShowModal] = useState(false);
+  const [editAddressId, setEditAddressId] = useState("");
   const navigate = useNavigate();
   const {
-    state: { addresses },
+    state: { addresses, isAddressLoading },
     getAllAddresses,
     addNewAddress,
     deleteAddress,
+    addEditAddress,
   } = useUserContext();
   const { userId } = useAuthContext();
 
@@ -22,6 +29,16 @@ const Address = () => {
     // eslint-disable-next-line
   }, [userId]);
 
+  const handleEditAddressBtn = (userId, addressId) => {
+    setShowModal(true);
+    setEditAddressId(addressId);
+  };
+
+  const handleAddNewAddrBtn = () => {
+    setShowModal(true);
+    setEditAddressId("");
+  };
+
   return (
     <>
       {showModal && (
@@ -29,84 +46,95 @@ const Address = () => {
           setShowModal={setShowModal}
           userId={userId}
           addNewAddress={addNewAddress}
+          editAddressId={editAddressId}
+          addEditAddress={addEditAddress}
+          addresses={addresses}
         />
       )}
       <div className={styles.address__wrapper}>
         <button
           className={styles.btn__address}
-          onClick={() => setShowModal(true)}
+          onClick={() => handleAddNewAddrBtn()}
         >
           <IoMdAddCircleOutline className={styles.btn__address__icon} />
           Add new address
         </button>
-        <div className={styles.address__card__wrapper}>
-          {addresses &&
-            addresses.length > 0 &&
-            addresses.map((address, index) => {
-              return (
-                <div className={styles.address__card} key={index}>
-                  <p>
-                    <span className={styles.span__bold}>Name:</span>
-                    {address.name}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>Phone Number:</span>
-                    {address.phone}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>Pincode:</span>
-                    {address.pincode}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>Address:</span>
-                    {address.address}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>City:</span>
-                    {address.city}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>State:</span>
-                    {address.state}
-                  </p>
-                  <p>
-                    <span className={styles.span__bold}>Country:</span>
-                    {address.country}
-                  </p>
-                  <div className={styles.address__btn_wrapper}>
-                    <div className={styles.d_flex_row_align_center}>
-                      {/* <button
-                        className={styles.btn__address}
-                        onClick={() =>
-                          handleEditAddressBtn(userId, address._id)
-                        }
-                      >
-                        <FiEdit2 className={styles.btn__address__icon} />
-                        edit address
-                      </button> */}
-                      <button
-                        className={styles.btn__address}
-                        onClick={() => deleteAddress(userId, address._id)}
-                      >
-                        <RiDeleteBin3Fill
-                          className={styles.btn__address__icon}
-                        />
-                        delete address
-                      </button>
+        {isAddressLoading ? (
+          <Loader type="ThreeDots" color="#333" height={100} width={100} />
+        ) : (
+          <div className={styles.address__card__wrapper}>
+            <h1>Addresses</h1>
+            {addresses &&
+              addresses.length > 0 &&
+              addresses.map((address, index) => {
+                return (
+                  <div className={styles.address__card} key={index}>
+                    <p>
+                      <span className={styles.span__bold}>Name:</span>
+                      {address?.name}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>Phone Number:</span>
+                      {address?.phone}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>Pincode:</span>
+                      {address?.pincode}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>Address:</span>
+                      {address?.address}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>City:</span>
+                      {address?.city}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>State:</span>
+                      {address?.state}
+                    </p>
+                    <p>
+                      <span className={styles.span__bold}>Country:</span>
+                      {address?.country}
+                    </p>
+                    <div className={styles.address__btn_wrapper}>
+                      <div className={styles.d_flex_row_align_center}>
+                        <button
+                          className={styles.btn__address}
+                          onClick={() =>
+                            handleEditAddressBtn(userId, address._id)
+                          }
+                        >
+                          <FiEdit2 className={styles.btn__address__icon} />
+                          edit address
+                        </button>
+                        <button
+                          className={styles.btn__address}
+                          onClick={() => deleteAddress(userId, address._id)}
+                        >
+                          <RiDeleteBin3Fill
+                            className={styles.btn__address__icon}
+                          />
+                          delete address
+                        </button>
+                      </div>
+                      {isFromUser ? null : (
+                        <button
+                          className={styles.btn__address}
+                          onClick={() =>
+                            navigate("/finalcheckout", { state: address._id })
+                          }
+                        >
+                          Deliver to this address
+                        </button>
+                      )}
                     </div>
-                    <button
-                      className={styles.btn__address}
-                      onClick={() =>
-                        navigate("/finalcheckout", { state: address._id })
-                      }
-                    >
-                      Deliver to this address
-                    </button>
                   </div>
-                </div>
-              );
-            })}
-        </div>
+                );
+              })}
+            {addresses && addresses.length === 0 && <p>No address found</p>}
+          </div>
+        )}
       </div>
     </>
   );
@@ -166,10 +194,31 @@ const initialState = {
   },
 };
 
-const AddressModal = ({ setShowModal, userId, addNewAddress }) => {
+const AddressModal = ({
+  setShowModal,
+  userId,
+  addNewAddress,
+  editAddressId,
+  addEditAddress,
+  addresses,
+}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleAddAddress = () => {
+    if (editAddressId) {
+      addEditAddress(userId, {
+        name: state.name.value,
+        phone: state.phone.value,
+        pincode: state.pincode.value,
+        city: state.city.value,
+        address: state.address.value,
+        state: state.state.value,
+        country: state.country.value,
+        _id: reqdAddress._id,
+      });
+      setShowModal(false);
+      return;
+    }
     addNewAddress(userId, {
       _id: uuidv4(),
       name: state.name.value,
@@ -180,7 +229,19 @@ const AddressModal = ({ setShowModal, userId, addNewAddress }) => {
       state: state.state.value,
       country: state.country.value,
     });
+    setShowModal(false);
   };
+
+  const reqdAddress = addresses.find(
+    (address) => address._id === editAddressId
+  );
+
+  useEffect(() => {
+    reqdAddress &&
+      reqdAddress.hasOwnProperty("_id") &&
+      dispatch({ type: "POPULATE_ADDRESS", payload: reqdAddress });
+    // eslint-disable-next-line
+  }, [editAddressId]);
 
   const handleBlur = (inputType) => {
     switch (inputType) {
@@ -393,7 +454,11 @@ const AddressModal = ({ setShowModal, userId, addNewAddress }) => {
             className={styles.btn__add}
             onClick={() => handleAddAddress()}
           >
-            Add Address
+            {!editAddressId ? (
+              <span>Add Address</span>
+            ) : (
+              <span>Edit Address</span>
+            )}
           </button>
           <button
             className={styles.btn__close}
