@@ -77,6 +77,34 @@
   background-color: #ff9292;
 }
 
+.order__modal {
+  padding: 1em;
+  width: 200px;
+  border-radius: 0.25em;
+  box-shadow: rgb(237, 236, 236) 0px 2px 8px 0px;
+  margin: 1em;
+  background-color: #fff;
+  border: 1px solid #eee;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 5px;
+  right: 5px;
+  border-left: 15px solid rgb(80, 241, 80);
+  animation-name: modalAnimation;
+  animation-duration: 1s;  
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes modalAnimation {
+  0% {top: -30px; }
+  50% {top: 15px;}
+  100% { top: 5px }
+}
+
 @media screen and (max-width: 550px) {
   .address__wrapper {
     width: 90%;

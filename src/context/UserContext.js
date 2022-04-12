@@ -50,6 +50,11 @@ export const userFunction = (state, action) => {
         ...state,
         orders: [...state.orders, action.payload],
       };
+    case "ORDER_STATUS":
+      return {
+        ...state,
+        orderStatus: action.payload,
+      };
     case "STORE_ALL_ORDERS":
       console.log(action.payload);
       return {
@@ -67,6 +72,7 @@ export const UserProvider = ({ children }) => {
     currentDeliverAddress: {},
     orders: [],
     isAddressLoading: false,
+    orderStatus: "",
   });
 
   const getAllAddresses = async (userId) => {
@@ -157,6 +163,7 @@ export const UserProvider = ({ children }) => {
       );
       response.data.success &&
         dispatch({ type: "SAVE_ORDERS", payload: response.data.saveOrder });
+      dispatch({ type: "ORDER_STATUS", payload: response.data.success });
     } catch (error) {
       console.log(error);
     }

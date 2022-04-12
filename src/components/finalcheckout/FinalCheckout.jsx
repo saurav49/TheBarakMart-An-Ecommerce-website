@@ -11,9 +11,10 @@ const FinalCheckout = () => {
   const { state } = useLocation();
   const [reqdAddress, setReqdAddress] = useState({});
   const {
-    state: { addresses },
+    state: { addresses, orderStatus },
     getAllAddresses,
     saveOrder,
+    dispatch,
   } = useUserContext();
   const {
     state: { cartList },
@@ -66,12 +67,17 @@ const FinalCheckout = () => {
     }));
     const totalPrice = handleTotalPrice() + 49;
     const address = reqdAddress;
-    console.log(items, totalPrice, address);
     saveOrder(userId, { items, totalPrice, address });
   };
 
+  orderStatus &&
+    setTimeout(() => {
+      dispatch({ type: "ORDER_STATUS", payload: false });
+    }, 5000);
+
   return (
     <div className={styles.final__checkout__wrapper}>
+      {orderStatus && <OrderToast />}
       <h1>Review Your Order</h1>
       <div>
         {reqdAddress && reqdAddress.hasOwnProperty("_id") && (
@@ -124,7 +130,7 @@ const FinalCheckout = () => {
           className={styles.checkout__btn}
           onClick={() => handleCheckout()}
         >
-          Proceed to Checkout
+          Pay Now
         </button>
       </div>
     </div>
@@ -141,6 +147,14 @@ const ProductCard = ({ productId, name, desc, image, price, quantity }) => {
       <p>{desc}</p>
       <p>₹{price}</p>
       <p>Quantity: {quantity}</p>
+    </div>
+  );
+};
+
+export const OrderToast = () => {
+  return (
+    <div className={styles.order__modal}>
+      <p>Order successful</p>
     </div>
   );
 };
