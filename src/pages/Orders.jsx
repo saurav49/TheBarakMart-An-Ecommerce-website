@@ -44,8 +44,10 @@ const Orders = () => {
                   <div className={styles.order__desc}>
                     <h2 style={{ marginBottom: "0.75em" }}>Order Confirmed</h2>
                     <p>
-                      Order:
-                      <span className={styles.span__style}>#{order._id}</span>
+                      <span style={{ fontWeight: "bold" }}>Order:</span>
+                      <span className={styles.span__order__id}>
+                        #{order._id}
+                      </span>
                     </p>
                     <p>
                       <span className={styles.span__style}>Total:</span> ₹
@@ -53,10 +55,28 @@ const Orders = () => {
                     </p>
                     <p>
                       <span className={styles.span__style}>Address:</span>
-                      {order.address.name},{order.address.address}
-                      {order.address.city}
-                      {order.address.pincode} {order.address.state}
-                      {order.address.country} {order.address.phone}
+                      <span className={styles.address__text}>
+                        {order.address.name}
+                      </span>
+                      ,
+                      <span className={styles.address__text}>
+                        {order.address.address},
+                      </span>
+                      <span className={styles.address__text}>
+                        {order.address.city},
+                      </span>
+                      <span className={styles.address__text}>
+                        {order.address.pincode},
+                      </span>
+                      <span className={styles.address__text}>
+                        {order.address.state},
+                      </span>
+                      <span className={styles.address__text}>
+                        {order.address.country},
+                      </span>
+                      <span className={styles.address__text}>
+                        {order.address.phone}
+                      </span>
                     </p>
                   </div>
                   {order.items.map((item) => {

@@ -53,6 +53,14 @@
     font-weight: bold;
 }
 
+.address__text {
+    margin: 0em 0.15em;
+}
+
+.span__order__id {
+    margin-left: 0.25em;
+}
+
 @media screen and (max-width: 694px) {
     .order__card {
         width: 100%;
