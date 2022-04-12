@@ -4,9 +4,7 @@ import { useAuthContext } from "../hook/index";
 import { ORDERS_API } from "../urls";
 import styles from "./Orders.module.css";
 import Loader from "react-loader-spinner";
-{
-  /* <Loader type="ThreeDots" color="#333" height={100} width={100} /> */
-}
+
 const Orders = () => {
   const [allOrders, setAllOrders] = useState([]);
   const [orderLoader, setOrderLoader] = useState(false);
