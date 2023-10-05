@@ -1,0 +1,284 @@
+.productCard {
+  width: 265px;
+  margin: 2em;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.productCard:hover {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.productDesc {
+  padding: 0.5em;
+}
+
+.productDescOutOfStock {
+  padding: 0.5em;
+  opacity: 0.3;
+}
+
+.productDescOutOfStock > * {
+  padding: 0.35em;
+}
+
+.productDesc > * {
+  padding: 0.35em;
+}
+
+/* image-style */
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+}
+
+.imageContainerOutOfStock {
+  position: relative;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  text-align: center;
+}
+
+.imageOverlayDiv {
+  background-color: rgb(252, 92, 92);
+  padding: 1em;
+  border: 1px solid rgb(252, 92, 92);
+  border-radius: 0.2em;
+  box-shadow: 0px 4px 8px rgba(252, 92, 92, 0.4);
+}
+
+/* ALL BUTTONS HAVE Z-INDEX 2 */
+
+.btn {
+  width: 100%;
+  margin: 0em;
+  font-size: 0.95rem;
+  padding: 1em 0.5em;
+  border: none;
+  border: 2px solid #333;
+  color: #333;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  outline: none;
+  transition: 0.3s all ease-in;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 2;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  background-color: #333;
+  color: #fff;
+}
+
+.bagIcon {
+  font-size: 1.2rem;
+  transition: 0.3s all ease-in;
+  transform: translate(5px, -2.5px);
+}
+
+.btn:hover .bagIcon {
+  transform: translate(5px, -5px);
+}
+
+.arrowIcon {
+  font-size: 1.2rem;
+  transition: 0.3s all ease-in;
+  transform: translate(5px, -1.5px);
+}
+
+.btn:hover .arrowIcon {
+  transform: translate(10px, -1.5px);
+}
+
+.btn:active {
+  transform: translateY(2px);
+}
+
+.btnWishCard {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  margin: 0;
+  padding: 0.6em 0.4em;
+  background-color: rgb(207, 207, 207);
+  outline: none;
+  z-index: 2;
+}
+
+.btnWishCard:hover {
+  background-color: rgb(255, 255, 255);
+  transform: translateY(-3px);
+}
+
+.btnWishDetailCard {
+  border: 2px solid #333;
+  padding: 0.8rem;
+  outline: none;
+  z-index: 2;
+}
+
+.btnWishDetailCard:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.heartIcon {
+  font-size: 1.3rem;
+  transition: 0.3s all ease-in;
+}
+
+.btnWishDetailCard:hover .heartIcon {
+  transform: translate(0px, -2.5px);
+}
+
+.offerTextStyle {
+  color: #ef4444;
+  font-weight: 700;
+}
+
+.outOfStockTextStyle {
+  color: #fff;
+  font-weight: 600;
+}
+
+.detailProductCardWrapper {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin: 2em auto 1em auto;
+}
+
+.detailProductCardWrapper > div {
+  width: 50%;
+}
+
+.detailProductImage {
+  width: 100%;
+}
+
+.productDetails {
+  padding: 1.5em;
+  background-color: #eee;
+  color: #333;
+  border-radius: 0.75em;
+}
+
+.productDetails > * {
+  margin: 0.2em 0em;
+}
+
+.detailProductPriceText {
+  font-weight: 600;
+}
+
+.productDesc {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1em;
+}
+
+.productDescBtns {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin: 1em 0em;
+}
+
+.similarProductsWrapper {
+  margin: 1.5em 0em 0em 0em;
+}
+
+.similarProductsHeading {
+  padding: 0em 2em;
+}
+
+.similarProducts {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.goBackBtn {
+  width: 100px;
+  margin: 2em 2em 1em 2em;
+  padding: 0.5em 2.5em;
+  border: 2px solid #333;
+  cursor: pointer;
+  transition: 0.3s all ease-in;
+}
+
+.goBackBtnIcon {
+  transition: 0.3s all ease-in;
+}
+
+.goBackBtn:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.goBackBtn:hover > .goBackBtnIcon {
+  transform: translate(-10px, 0px);
+}
+
+.showProductCardWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 310px;
+  border: 1px solid #eee;
+  border-radius: 0.25em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  cursor: pointer;
+}
+
+.showProductImage {
+  width: 100%;
+}
+
+.showProductDesc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.showProductDesc > p {
+  text-align: center;
+  margin: 0.15em 0em;
+}
+
+@media screen and (max-width: 764px) {
+  .detailProductCardWrapper {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .detailProductCardWrapper > div {
+    width: 100%;
+  }
+
+  .similarProducts {
+    flex-direction: column;
+  }
+}

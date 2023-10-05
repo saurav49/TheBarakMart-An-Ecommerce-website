@@ -1,0 +1,34 @@
+.productListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.productList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+h1 {
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+.categoryPageWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.categoryPageWrapper > h2 {
+  margin: 1.5em 0em 1.5em 3em;
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+}

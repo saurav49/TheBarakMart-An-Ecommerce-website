@@ -1,0 +1,19 @@
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 80%;
+  min-height: 80%;
+}
+.cartDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cartList {
+  display: flex;
+  flex-wrap: wrap;
+}

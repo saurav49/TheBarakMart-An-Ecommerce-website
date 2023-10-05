@@ -1,0 +1,86 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+  color: #fff;
+  background-color: #333;
+  width: 85%;
+  margin: 0 auto;
+}
+
+.brandContainer {
+  display: flex;
+  align-items: center;
+  padding: 0em 0.5em;
+  justify-content: space-between;
+}
+
+.brandIcon {
+  font-size: 1.8rem;
+}
+
+.brandName {
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.8rem;
+  padding: 0.5em;
+}
+
+.cartWishContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* width: 50%; */
+}
+
+.logoutBtnWrapper {
+  margin: 0 1.5em 0 0;
+  cursor: pointer;
+}
+
+.logoutBtnText {
+  font-size: 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  margin: 0em;
+  padding: 0em;
+}
+
+.logoutBtnIcon {
+  font-size: 1.85rem;
+  color: #fff;
+}
+
+.userIcon {
+  font-size: 1.85rem;
+  color: #fff;
+  margin: 0.5em;
+}
+
+.userBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 0 1em;
+}
+
+.userBtn > p {
+  font-weight: bold;
+  font-size: 0.80rem;
+  color: #fff;
+}
+
+@media (max-width: 550px) {
+  .navbar {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .brandContainer {
+    margin: 0.5em 0em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
